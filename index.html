@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="uk" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mon Mothma Design | Естетика візуальних рішень</title>
+    <meta name="description" content="Студія дизайну та фотодруку. Брендинг, вебдизайн, професійний друк фотографій.">
+    
+    <!-- Підключення шрифтів: Inter для інтерфейсу та Playfair Display для заголовків -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Налаштування Tailwind -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'paper': '#F5F5F0', // Теплий відтінок паперу
+                        'ink': '#1A1A1A',   // Глибокий чорний/графіт
+                        'stone': '#8C8C8C', // Світло-сірий для акцентів
+                        'accent': '#2C2C2C' 
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                    },
+                    backgroundImage: {
+                        'noise': "url('data:image/svg+xml,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noiseFilter%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.65%22 numOctaves=%223%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noiseFilter)%22 opacity=%220.05%22/%3E%3C/svg%3E')",
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Додаткові стилі -->
+    <style>
+        body {
+            background-color: #F5F5F0;
+            color: #1A1A1A;
+            overflow-x: hidden;
+        }
+        
+        /* Ефект зернистості (шуму) поверх всього сайту */
+        .grain-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 50;
+            background-image: url('data:image/svg+xml,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noiseFilter%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.8%22 numOctaves=%223%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noiseFilter)%22 opacity=%220.07%22/%3E%3C/svg%3E');
+        }
+
+        /* Плавна поява елементів при скролі */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 1s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Анімація переходу між сторінками */
+        .page-transition {
+            transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+        }
+        .page-hidden {
+            opacity: 0;
+            pointer-events: none;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            transform: translateY(20px);
+            z-index: -1;
+        }
+        .page-visible {
+            opacity: 1;
+            position: relative;
+            transform: translateY(0);
+            z-index: 1;
+        }
+
+        /* Стилізація зображень під "фотодрук" */
+        .photo-print {
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.6s ease;
+        }
+        
+        .photo-print img {
+            filter: grayscale(100%) contrast(110%);
+            transition: filter 0.6s ease, transform 0.6s ease;
+        }
+        
+        .photo-print:hover img {
+            filter: grayscale(0%) contrast(100%);
+            transform: scale(1.03);
+        }
+
+        /* Декоративні елементи "друку" (кроп-марки) */
+        .crop-mark {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            border-color: #1A1A1A;
+            pointer-events: none;
+            z-index: 10;
+        }
+        
+        .crop-tl { top: -10px; left: -10px; border-right: 1px solid; border-bottom: 1px solid; }
+        .crop-tr { top: -10px; right: -10px; border-left: 1px solid; border-bottom: 1px solid; }
+        .crop-bl { bottom: -10px; left: -10px; border-right: 1px solid; border-top: 1px solid; }
+        .crop-br { bottom: -10px; right: -10px; border-left: 1px solid; border-top: 1px solid; }
+
+        /* Таблиця цін */
+        .price-table th {
+            font-family: 'Playfair Display', serif;
+            font-weight: 400;
+            font-style: italic;
+            text-align: left;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #1A1A1A;
+        }
+        .price-table td {
+            padding: 1.5rem 0;
+            border-bottom: 1px solid #E5E5E5;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.95rem;
+        }
+        .price-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        /* Кастомний скролбар */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #F5F5F0;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #8C8C8C;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #1A1A1A;
+        }
+
+        p {
+            line-height: 1.7;
+            letter-spacing: -0.01em;
+        }
+        
+        h1, h2, h3 {
+            letter-spacing: -0.02em;
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-stone-300 selection:text-ink">
+
+    <!-- Шар шуму/зернистості -->
+    <div class="grain-overlay"></div>
+
+    <!-- Навігація -->
+    <nav class="fixed top-0 left-0 w-full z-40 bg-paper/90 backdrop-blur-sm border-b border-stone-200 transition-all duration-300" id="navbar">
+        <div class="max-w-7xl mx-auto px-6 py-5 flex justify-between items-center">
+            <a href="javascript:void(0)" onclick="navigateTo('home')" class="text-xl font-serif italic font-semibold tracking-wide hover:opacity-70 transition-opacity">Mon Mothma.</a>
+            
+            <div class="hidden md:flex space-x-12 text-sm font-medium tracking-wide text-stone-600">
+                <a href="javascript:void(0)" onclick="navigateTo('home')" class="hover:text-ink transition-colors relative group">
+                    Головна
+                    <span class="absolute -bottom-1 left-0 w-0 h-px bg-ink transition-all duration-300 group-hover:w-full"></span>
+                </a>
+                <a href="javascript:void(0)" onclick="navigateTo('photoprint')" class="hover:text-ink transition-colors relative group text-ink font-semibold">
+                    Фотодрук
+                    <span class="absolute -bottom-1 left-0 w-0 h-px bg-ink transition-all duration-300 group-hover:w-full"></span>
+                </a>
+                <a href="#portfolio" onclick="navigateTo('home', 'portfolio')" class="hover:text-ink transition-colors relative group">
+                    Роботи
+                    <span class="absolute -bottom-1 left-0 w-0 h-px bg-ink transition-all duration-300 group-hover:w-full"></span>
+                </a>
+                <a href="#contact" onclick="navigateTo('home', 'contact')" class="hover:text-ink transition-colors relative group">
+                    Контакти
+                    <span class="absolute -bottom-1 left-0 w-0 h-px bg-ink transition-all duration-300 group-hover:w-full"></span>
+                </a>
+            </div>
+
+            <button class="md:hidden text-ink" onclick="document.getElementById('mobile-menu').classList.toggle('hidden')">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+            </button>
+        </div>
+
+        <!-- Мобільне меню -->
+        <div id="mobile-menu" class="hidden absolute top-full left-0 w-full bg-paper border-b border-stone-200 p-6 flex-col space-y-4 md:hidden">
+            <a href="javascript:void(0)" onclick="navigateTo('home'); document.getElementById('mobile-menu').classList.add('hidden')" class="block text-lg font-serif italic">Головна</a>
+            <a href="javascript:void(0)" onclick="navigateTo('photoprint'); document.getElementById('mobile-menu').classList.add('hidden')" class="block text-lg font-serif italic">Фотодрук</a>
+            <a href="#portfolio" onclick="navigateTo('home', 'portfolio'); document.getElementById('mobile-menu').classList.add('hidden')" class="block text-lg font-serif italic">Роботи</a>
+            <a href="#contact" onclick="navigateTo('home', 'contact'); document.getElementById('mobile-menu').classList.add('hidden')" class="block text-lg font-serif italic">Контакти</a>
+        </div>
+    </nav>
+
+    <!-- CONTAINER FOR PAGES -->
+    <main class="min-h-screen pt-20">
+        
+        <!-- ================= HOME PAGE ================= -->
+        <div id="page-home" class="page-visible page-transition">
+            <!-- Головний екран -->
+            <header class="relative min-h-[90vh] flex items-center justify-center overflow-hidden">
+                <div class="absolute inset-0 z-0 opacity-10" style="background-image: linear-gradient(#1A1A1A 0.5px, transparent 0.5px), linear-gradient(90deg, #1A1A1A 0.5px, transparent 0.5px); background-size: 40px 40px;"></div>
+                
+                <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center relative z-10">
+                    <div class="reveal active">
+                        <span class="block text-xs uppercase tracking-[0.2em] text-stone-500 mb-6 flex items-center gap-2">
+                            <span class="w-8 h-px bg-stone-500"></span> Дизайн-бюро
+                        </span>
+                        <h1 class="text-5xl md:text-7xl font-serif font-medium leading-[1.1] mb-8 text-ink">
+                            Ми перетворюємо <br>
+                            <span class="italic text-stone-600">ідеї</span> на візуальну <br>
+                            матерію.
+                        </h1>
+                        <p class="text-lg text-stone-600 max-w-md mb-10 font-light">
+                            Створюємо цифрові продукти з душею аналогового мистецтва. Деталізація, що має значення, та функціонал, що працює на ваш бізнес.
+                        </p>
+                        <a href="#contact" class="inline-block border border-ink px-8 py-4 text-sm uppercase tracking-widest hover:bg-ink hover:text-paper transition-colors duration-500">
+                            Обговорити проєкт
+                        </a>
+                    </div>
+
+                    <div class="relative reveal delay-200 hidden lg:block active">
+                        <div class="photo-print bg-white p-4 shadow-2xl rotate-2 hover:rotate-0 transition-all duration-700 max-w-md ml-auto">
+                            <div class="crop-mark crop-tl"></div>
+                            <div class="crop-mark crop-tr"></div>
+                            <div class="crop-mark crop-bl"></div>
+                            <div class="crop-mark crop-br"></div>
+                            <!-- ФОТО: Замініть посилання на 'котокір.jpg' після завантаження сайту, щоб побачити ваше фото -->
+                            <img src="котокір.jpg" 
+                                 alt="Нуарний кіт" 
+                                 class="w-full h-auto object-cover aspect-[3/4] grayscale contrast-125"
+                                 title="Замініть src на 'котокір.jpg', щоб побачити фото з котом і цигаркою">
+                            <div class="mt-4 flex justify-between items-end text-[10px] text-stone-400 font-mono">
+                                <span>FIG. 01 — ARCHETYPE</span>
+                                <div class="flex gap-1">
+                                    <div class="w-2 h-2 rounded-full bg-cyan-500 opacity-50"></div>
+                                    <div class="w-2 h-2 rounded-full bg-magenta-500 opacity-50"></div>
+                                    <div class="w-2 h-2 rounded-full bg-yellow-500 opacity-50"></div>
+                                    <div class="w-2 h-2 rounded-full bg-black opacity-50"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Розділ: Про нас (Філософія) -->
+            <section id="about" class="py-24 relative">
+                <div class="max-w-5xl mx-auto px-6">
+                    <div class="grid grid-cols-1 md:grid-cols-12 gap-12">
+                        <div class="md:col-span-4 reveal">
+                            <h2 class="text-3xl font-serif italic mb-6">Філософія форми</h2>
+                            <div class="w-12 h-px bg-ink mb-6"></div>
+                            <p class="text-sm text-stone-500 uppercase tracking-wider">Естетика — це функція</p>
+                        </div>
+                        <div class="md:col-span-8 space-y-8 reveal delay-100">
+                            <p class="text-xl md:text-2xl font-light leading-relaxed text-stone-800">
+                                Сучасний світ перенасичений інформаційним шумом. У цьому хаосі перемагає той, хто говорить чітко, тихо, але впевнено. Ми не просто малюємо гарні картинки — ми будуємо візуальні системи, які впорядковують реальність вашого бренду.
+                            </p>
+                            <p class="text-base text-stone-600">
+                                Наш підхід базується на принципах класичного швейцарського дизайну: сітка, типографіка, вільний простір. Проте ми інтегруємо ці вічні істини в сучасний цифровий контекст.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Розділ: Галерея/Роботи -->
+            <section id="portfolio" class="py-24 px-6 md:px-12 bg-white">
+                <div class="max-w-7xl mx-auto">
+                    <div class="flex flex-col md:flex-row justify-between items-end mb-16 reveal">
+                        <h2 class="text-4xl font-serif">Вибрані проєкти</h2>
+                        <a href="#" class="text-sm border-b border-ink pb-1 mt-4 md:mt-0 hover:text-stone-600 transition-colors">Переглянути архів</a>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-24">
+                        <div class="group cursor-pointer reveal">
+                            <div class="photo-print bg-white p-3 shadow-lg mb-6 relative">
+                                <div class="crop-mark crop-tl"></div>
+                                <div class="crop-mark crop-br"></div>
+                                <img src="https://images.unsplash.com/photo-1620641788421-7a1c342ea42e?q=80&w=1000&auto=format&fit=crop" alt="Дизайн журналу" class="w-full aspect-[4/5] object-cover">
+                            </div>
+                            <div class="flex justify-between items-baseline border-b border-stone-300 pb-2">
+                                <h3 class="text-xl font-medium">Vogue Architecture</h3>
+                                <span class="text-xs font-mono text-stone-500">2024 / EDITORIAL</span>
+                            </div>
+                        </div>
+                        <div class="group cursor-pointer reveal delay-100 md:mt-24">
+                            <div class="photo-print bg-white p-3 shadow-lg mb-6 relative">
+                                <div class="crop-mark crop-tr"></div>
+                                <div class="crop-mark crop-bl"></div>
+                                <img src="https://images.unsplash.com/photo-1547658719-da2b51169166?q=80&w=1000&auto=format&fit=crop" alt="Брендинг" class="w-full aspect-[4/5] object-cover">
+                            </div>
+                            <div class="flex justify-between items-baseline border-b border-stone-300 pb-2">
+                                <h3 class="text-xl font-medium">Mono Coffee</h3>
+                                <span class="text-xs font-mono text-stone-500">2023 / BRANDING</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- ================= PHOTO PRINT PAGE ================= -->
+        <div id="page-photoprint" class="page-hidden page-transition">
+            <!-- Заголовок сторінки -->
+            <div class="py-24 bg-white border-b border-stone-200">
+                <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+                    <div class="reveal active">
+                        <span class="text-xs font-mono text-stone-400 mb-4 block">[ LABORATORY ]</span>
+                        <h1 class="text-5xl md:text-7xl font-serif mb-6 text-ink">Мистецтво <br><span class="italic text-stone-500">на папері.</span></h1>
+                        <p class="text-lg text-stone-600 max-w-md leading-relaxed">
+                            Фотографія набуває справжньої цінності лише тоді, коли стає фізичною. Ми пропонуємо друк музейної якості, що перетворює ваші цифрові спогади на вічні артефакти.
+                        </p>
+                    </div>
+                    <div class="reveal active delay-100 hidden md:block">
+                        <div class="photo-print bg-white p-3 shadow-xl rotate-1 max-w-sm ml-auto relative">
+                             <div class="crop-mark crop-tl"></div>
+                             <div class="crop-mark crop-br"></div>
+                             <img src="https://images.unsplash.com/photo-1516035069371-29a1b244cc32?q=80&w=1000&auto=format&fit=crop" alt="Процес друку" class="w-full aspect-square object-cover grayscale">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Технологія -->
+            <section class="py-24 px-6">
+                <div class="max-w-4xl mx-auto">
+                    <div class="mb-16 reveal">
+                        <h2 class="text-3xl font-serif italic mb-6">Технологія зображення</h2>
+                        <p class="text-stone-600 leading-relaxed">
+                            Ми не йдемо на компроміси з якістю. Наша студія оснащена сучасним обладнанням, що використовує розширену систему чорнил для бездоганної передачі кольору. Це забезпечує глибокі, оксамитові чорні тони для монохромних світлин та яскраві, живі відтінки для кольорових зображень. Завдяки високій роздільній здатності друку ми зберігаємо найменші деталі вашого кадру, а спеціальні чорнила гарантують стійкість до вицвітання впродовж багатьох років.
+                        </p>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-12 mb-20 reveal">
+                        <div class="bg-white p-8 border border-stone-200 shadow-sm relative overflow-hidden group">
+                             <div class="absolute top-0 left-0 w-1 h-full bg-stone-200 group-hover:bg-ink transition-colors duration-300"></div>
+                             <h3 class="text-xl font-serif mb-4">Глянцевий папір</h3>
+                             <p class="text-sm text-stone-600 mb-4">
+                                 Ідеально підходить для яскравих та насичених фотографій. Блискуча поверхня підкреслює кольори та деталі, роблячи зображення "живим". Чудовий вибір для портретів та пейзажів, де важлива динаміка та контраст.
+                             </p>
+                             <span class="text-xs font-mono text-stone-400 uppercase tracking-widest">Glossy Finish</span>
+                        </div>
+                        <div class="bg-white p-8 border border-stone-200 shadow-sm relative overflow-hidden group">
+                             <div class="absolute top-0 left-0 w-1 h-full bg-stone-200 group-hover:bg-ink transition-colors duration-300"></div>
+                             <h3 class="text-xl font-serif mb-4">Матовий папір</h3>
+                             <p class="text-sm text-stone-600 mb-4">
+                                 Має неблискучу шляхетну поверхню, що запобігає появі відблисків та відбитків пальців. Надає фотографіям м'якості та глибини. Це найкращий вибір для чорно-білих знімків, художніх фото та інтер'єрних рішень.
+                             </p>
+                             <span class="text-xs font-mono text-stone-400 uppercase tracking-widest">Matte Finish</span>
+                        </div>
+                    </div>
+
+                    <!-- Таблиця цін -->
+                    <div class="bg-white p-8 md:p-12 shadow-2xl reveal">
+                        <div class="flex justify-between items-end mb-10">
+                            <h2 class="text-3xl font-serif">Прайслист</h2>
+                            <span class="text-xs font-mono text-stone-400 hidden md:inline-block">UPDATED: NOV 2024</span>
+                        </div>
+                        
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-left price-table border-collapse">
+                                <thead>
+                                    <tr>
+                                        <th class="w-1/3">Формат</th>
+                                        <th class="w-1/3">Глянець <span class="text-xs text-stone-400 font-sans not-italic font-normal block md:inline">/ шт.</span></th>
+                                        <th class="w-1/3">Мат <span class="text-xs text-stone-400 font-sans not-italic font-normal block md:inline">/ шт.</span></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="font-medium text-ink">10x15 см</td>
+                                        <td class="text-stone-600">23 ₴</td>
+                                        <td class="text-stone-600">15 ₴</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="font-medium text-ink">13x18 см</td>
+                                        <td class="text-stone-600">20 ₴</td>
+                                        <td class="text-stone-600">17 ₴</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="font-medium text-ink">15x21 см <span class="text-stone-400 text-xs ml-1">(A5)</span></td>
+                                        <td class="text-stone-600">21 ₴</td>
+                                        <td class="text-stone-600">19 ₴</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="font-medium text-ink">21x30 см <span class="text-stone-400 text-xs ml-1">(A4)</span></td>
+                                        <td class="text-stone-600">40 ₴</td>
+                                        <td class="text-stone-600">32 ₴</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="font-medium text-ink">30x42 см <span class="text-stone-400 text-xs ml-1">(A3)</span></td>
+                                        <td class="text-stone-600">70 ₴</td>
+                                        <td class="text-stone-600">65 ₴</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="mt-8 text-xs text-stone-500 font-mono border-t border-stone-100 pt-4 flex flex-col md:flex-row justify-between">
+                            <p>* Мінімальне замовлення — 100 грн.</p>
+                            <p>Для нестандартних розмірів ціна розраховується індивідуально.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Як замовити -->
+            <section class="py-24 bg-ink text-paper relative overflow-hidden">
+                <!-- Декоративна лінія -->
+                <div class="absolute top-0 left-1/2 -translate-x-1/2 w-px h-20 bg-stone-700"></div>
+
+                <div class="max-w-3xl mx-auto px-6 text-center reveal">
+                    <h2 class="text-3xl md:text-4xl font-serif mb-8 text-white">Як замовити друк?</h2>
+                    <p class="text-stone-400 mb-10 leading-relaxed font-light">
+                        Процес простий: надішліть ваші фотографії на нашу електронну пошту або в месенджер. Обов'язково вкажіть бажаний розмір та тип паперу (матовий чи глянцевий). Ми перевіримо файли та зв'яжемося з вами для підтвердження.
+                    </p>
+                    <div class="flex flex-col md:flex-row gap-6 justify-center">
+                        <a href="https://t.me/mon_mothma_design" target="_blank" class="inline-block border border-white px-8 py-3 text-sm uppercase tracking-widest hover:bg-white hover:text-ink transition-colors duration-300">
+                            Написати в Telegram
+                        </a>
+                        <a href="mailto:mon.mothma.design@gmail.com" class="inline-block border border-stone-600 px-8 py-3 text-sm uppercase tracking-widest hover:border-white hover:text-white transition-colors duration-300 text-stone-400">
+                            Надіслати Email
+                        </a>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Секція "Бігаючий рядок" (Спільна) -->
+    <div class="py-12 border-y border-stone-200 overflow-hidden bg-white">
+        <div class="whitespace-nowrap flex animate-marquee">
+            <span class="text-6xl md:text-8xl font-serif italic text-stone-200 px-8">Print is not dead.</span>
+            <span class="text-6xl md:text-8xl font-serif italic text-stone-200 px-8">Tactile memory.</span>
+            <span class="text-6xl md:text-8xl font-serif italic text-stone-200 px-8">Digital Soul.</span>
+            <span class="text-6xl md:text-8xl font-serif italic text-stone-200 px-8">Print is not dead.</span>
+        </div>
+    </div>
+    <style>
+        @keyframes marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+        .animate-marquee {
+            animation: marquee 30s linear infinite;
+        }
+    </style>
+
+    <!-- Контакти (Спільна секція) -->
+    <section id="contact" class="py-24 bg-paper relative">
+        <div class="max-w-4xl mx-auto px-6">
+            <div class="text-center mb-16 reveal">
+                <h2 class="text-4xl md:text-5xl font-serif mb-4">Зв'яжіться з нами</h2>
+                <p class="text-stone-600 mb-8">Для замовлення дизайну або фотодруку.</p>
+                
+                <!-- Соціальні іконки -->
+                <div class="flex justify-center gap-8 items-center mb-12">
+                    <!-- Instagram (ДОДАНО) -->
+                    <a href="https://www.instagram.com/mon.mothma_design?igsh=MXBwamdzamxhaGNuZw%3D%3D&utm_source=qr" target="_blank" class="text-ink hover:text-stone-500 transition-all duration-300 hover:scale-110" title="Instagram">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+                    </a>
+
+                    <!-- Telegram -->
+                    <a href="https://t.me/mon_mothma_design" target="_blank" class="text-ink hover:text-stone-500 transition-all duration-300 hover:scale-110" title="Telegram">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21.198 2.433a2.242 2.242 0 0 0-1.022.215l-8.609 3.33c-2.068.8-4.133 1.598-5.724 2.21a405.15 405.15 0 0 1-2.849 1.09c-.42.147-.99.332-1.473.901-.728.968.193 1.798.919 2.286 1.61.516 3.275 1.009 4.654 1.472.509 1.793.997 3.592 1.48 5.388.16.36.506.494.864.498l-.002.018s.281.028.555-.038a2.1 2.1 0 0 0 .933-.517c.345-.324 1.28-1.244 1.811-1.764l3.999 2.952.032.018s.442.311 1.09.355c.324.022.75-.04 1.116-.308.37-.27.613-.702.728-1.196.342-1.492 2.61-12.263 2.975-14.028l.014-.075-.048.019a2.89 2.89 0 0 0-1.565-.953z"/></svg>
+                    </a>
+                    
+                    <!-- Viber -->
+                    <a href="viber://chat?number=%2B380961775991" class="text-ink hover:text-stone-500 transition-all duration-300 hover:scale-110" title="Viber">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path><path d="M14.05 2a9 9 0 0 1 8 7.94"></path><path d="M14.05 6A5 5 0 0 1 18 10"></path></svg>
+                    </a>
+
+                    <!-- WhatsApp -->
+                    <a href="https://wa.me/380961775991" target="_blank" class="text-ink hover:text-stone-500 transition-all duration-300 hover:scale-110" title="WhatsApp">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21l1.65-3.8a9 9 0 1 1 3.4 2.9L3 21"></path></svg>
+                    </a>
+
+                    <!-- Gmail Button -->
+                    <a href="mailto:mon.mothma.design@gmail.com" class="text-ink hover:text-stone-500 transition-all duration-300 hover:scale-110" title="Написати Email">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                    </a>
+                </div>
+                
+                <p class="text-xs text-stone-400 uppercase tracking-widest mb-2">Або заповніть форму</p>
+                <div class="w-8 h-px bg-stone-300 mx-auto"></div>
+            </div>
+
+            <form id="contactForm" class="space-y-12 reveal delay-100">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                    <div class="relative">
+                        <input type="text" id="name" required class="peer w-full bg-transparent border-b border-stone-400 py-2 text-ink focus:outline-none focus:border-ink transition-colors placeholder-transparent" placeholder="Ім'я">
+                        <label for="name" class="absolute left-0 -top-3.5 text-xs text-stone-500 transition-all peer-placeholder-shown:text-base peer-placeholder-shown:top-2 peer-focus:-top-3.5 peer-focus:text-xs peer-focus:text-ink">Ваше ім'я</label>
+                    </div>
+                    <div class="relative">
+                        <input type="email" id="email" required class="peer w-full bg-transparent border-b border-stone-400 py-2 text-ink focus:outline-none focus:border-ink transition-colors placeholder-transparent" placeholder="Email">
+                        <label for="email" class="absolute left-0 -top-3.5 text-xs text-stone-500 transition-all peer-placeholder-shown:text-base peer-placeholder-shown:top-2 peer-focus:-top-3.5 peer-focus:text-xs peer-focus:text-ink">Електронна пошта</label>
+                    </div>
+                </div>
+                
+                <div class="relative">
+                    <textarea id="message" required rows="4" class="peer w-full bg-transparent border-b border-stone-400 py-2 text-ink focus:outline-none focus:border-ink transition-colors placeholder-transparent resize-none" placeholder="Повідомлення"></textarea>
+                    <label for="message" class="absolute left-0 -top-3.5 text-xs text-stone-500 transition-all peer-placeholder-shown:text-base peer-placeholder-shown:top-2 peer-focus:-top-3.5 peer-focus:text-xs peer-focus:text-ink">Деталі замовлення</label>
+                </div>
+
+                <div class="flex justify-center pt-8">
+                    <button type="submit" class="group relative px-12 py-4 bg-transparent overflow-hidden border border-ink text-ink transition-colors hover:text-paper">
+                        <span class="absolute inset-0 w-full h-full bg-ink transform -translate-x-full group-hover:translate-x-0 transition-transform duration-300 ease-out"></span>
+                        <span class="relative z-10 uppercase tracking-widest text-sm font-medium">Надіслати</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <!-- Футер -->
+    <footer class="bg-ink text-paper py-16 border-t border-stone-800">
+        <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-12">
+            <div class="md:col-span-2">
+                <a href="#" class="text-2xl font-serif italic mb-6 block">Mon Mothma.</a>
+                <p class="text-stone-400 text-sm max-w-xs leading-relaxed">
+                    Дизайн-бюро, що створює сенси. Ми працюємо на перетині технологій та мистецтва, щоб ваш бізнес був почутим.
+                </p>
+            </div>
+            
+            <div>
+                <h4 class="text-xs uppercase tracking-widest text-stone-500 mb-6">Навігація</h4>
+                <ul class="space-y-3 text-sm text-stone-300">
+                    <li><a href="javascript:void(0)" onclick="navigateTo('home')" class="hover:text-white transition-colors">Головна</a></li>
+                    <li><a href="javascript:void(0)" onclick="navigateTo('photoprint')" class="hover:text-white transition-colors">Фотодрук</a></li>
+                    <li><a href="#portfolio" class="hover:text-white transition-colors">Портфоліо</a></li>
+                    <li><a href="#contact" class="hover:text-white transition-colors">Контакти</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h4 class="text-xs uppercase tracking-widest text-stone-500 mb-6">Соціальні мережі</h4>
+                <ul class="space-y-3 text-sm text-stone-300">
+                    <li><a href="https://t.me/mon_mothma_design" target="_blank" class="hover:text-white transition-colors">Telegram</a></li>
+                    <li><a href="https://www.instagram.com/mon.mothma_design?igsh=MXBwamdzamxhaGNuZw%3D%3D&utm_source=qr" target="_blank" class="hover:text-white transition-colors">Instagram</a></li>
+                    <li><a href="#" class="hover:text-white transition-colors">Behance</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="max-w-7xl mx-auto px-6 mt-16 pt-8 border-t border-stone-800 flex flex-col md:flex-row justify-between items-center text-xs text-stone-500 font-mono">
+            <p>&copy; 2024 Mon Mothma Design. Усі права застережено.</p>
+            <p>Designed with <span class="text-stone-300">♥</span> in Ukraine</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript для інтерактивності та навігації -->
+    <script>
+        // Обробка форми зворотного зв'язку
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const message = document.getElementById('message').value;
+            
+            // Формування тіла листа для mailto
+            const subject = `Запит з сайту Mon Mothma від ${name}`;
+            const body = `Ім'я: ${name}%0D%0AEmail: ${email}%0D%0A%0D%0AПовідомлення:%0D%0A${message}`;
+            
+            // Відкриття поштового клієнта
+            window.location.href = `mailto:mon.mothma.design@gmail.com?subject=${subject}&body=${body}`;
+        });
+
+        // Функція навігації (SPA роутинг)
+        function navigateTo(pageId, anchorId = null) {
+            const homePage = document.getElementById('page-home');
+            const printPage = document.getElementById('page-photoprint');
+            
+            // Плавний скрол до верху
+            if (!anchorId) {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+
+            if (pageId === 'home') {
+                homePage.classList.remove('page-hidden');
+                homePage.classList.add('page-visible');
+                printPage.classList.remove('page-visible');
+                printPage.classList.add('page-hidden');
+            } else if (pageId === 'photoprint') {
+                homePage.classList.remove('page-visible');
+                homePage.classList.add('page-hidden');
+                printPage.classList.remove('page-hidden');
+                printPage.classList.add('page-visible');
+            }
+
+            // Якщо є якір (наприклад #contact), скролимо до нього після зміни сторінки
+            if (anchorId) {
+                setTimeout(() => {
+                    const el = document.getElementById(anchorId);
+                    if (el) el.scrollIntoView({ behavior: 'smooth' });
+                }, 100);
+            }
+        }
+
+        // Intersection Observer для анімації появи елементів
+        document.addEventListener('DOMContentLoaded', () => {
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: "0px 0px -50px 0px"
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                    }
+                });
+            }, observerOptions);
+
+            // Спостерігаємо за всіма елементами .reveal на обох "сторінках"
+            document.querySelectorAll('.reveal').forEach(el => {
+                observer.observe(el);
+            });
+
+            // Плавна зміна фону навігації
+            const navbar = document.getElementById('navbar');
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 50) {
+                    navbar.classList.add('shadow-sm');
+                    navbar.classList.add('bg-paper/95');
+                } else {
+                    navbar.classList.remove('shadow-sm');
+                    navbar.classList.remove('bg-paper/90');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
