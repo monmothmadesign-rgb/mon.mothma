@@ -4,9 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mon Mothma Design | Естетика візуальних рішень</title>
-    <meta name="description" content="Студія дизайну та фотодруку. Брендинг, вебдизайн, професійний друк фотографій.">
+    <meta name="description" content="Студія дизайну, веброзробки та фотодруку. Створюємо візуальні сенси.">
     
-    <!-- Підключення шрифтів: Inter для інтерфейсу та Playfair Display для заголовків -->
+    <!-- Підключення шрифтів -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
@@ -45,7 +45,6 @@
             overflow-x: hidden;
         }
         
-        /* Ефект зернистості (шуму) поверх всього сайту */
         .grain-overlay {
             position: fixed;
             top: 0;
@@ -57,7 +56,6 @@
             background-image: url('data:image/svg+xml,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noiseFilter%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.8%22 numOctaves=%223%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noiseFilter)%22 opacity=%220.07%22/%3E%3C/svg%3E');
         }
 
-        /* Плавна поява елементів при скролі */
         .reveal {
             opacity: 0;
             transform: translateY(30px);
@@ -69,7 +67,6 @@
             transform: translateY(0);
         }
 
-        /* Анімація переходу між сторінками */
         .page-transition {
             transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
         }
@@ -90,7 +87,6 @@
             z-index: 1;
         }
 
-        /* Стилізація зображень під "фотодрук" */
         .photo-print {
             position: relative;
             overflow: hidden;
@@ -107,7 +103,6 @@
             transform: scale(1.03);
         }
 
-        /* Декоративні елементи "друку" (кроп-марки) */
         .crop-mark {
             position: absolute;
             width: 20px;
@@ -122,7 +117,6 @@
         .crop-bl { bottom: -10px; left: -10px; border-right: 1px solid; border-top: 1px solid; }
         .crop-br { bottom: -10px; right: -10px; border-left: 1px solid; border-top: 1px solid; }
 
-        /* Таблиця цін */
         .price-table th {
             font-family: 'Playfair Display', serif;
             font-weight: 400;
@@ -141,38 +135,22 @@
             border-bottom: none;
         }
 
-        /* Кастомний скролбар */
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #F5F5F0;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #8C8C8C;
-            border-radius: 4px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #1A1A1A;
-        }
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #F5F5F0; }
+        ::-webkit-scrollbar-thumb { background: #8C8C8C; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #1A1A1A; }
 
-        p {
-            line-height: 1.7;
-            letter-spacing: -0.01em;
-        }
-        
-        h1, h2, h3 {
-            letter-spacing: -0.02em;
-        }
+        p { line-height: 1.7; letter-spacing: -0.01em; }
+        h1, h2, h3 { letter-spacing: -0.02em; }
     </style>
 </head>
 <body class="antialiased selection:bg-stone-300 selection:text-ink">
 
-    <!-- Шар шуму/зернистості -->
     <div class="grain-overlay"></div>
 
     <!-- Навігація -->
-    <nav class="fixed top-0 left-0 w-full z-40 bg-paper/90 backdrop-blur-sm border-b border-stone-200 transition-all duration-300" id="navbar">
+    <!-- Z-INDEX змінено на 60, щоб бути поверх сторінок проєктів -->
+    <nav class="fixed top-0 left-0 w-full z-[60] bg-paper/90 backdrop-blur-sm border-b border-stone-200 transition-all duration-300 transform translate-y-0" id="navbar">
         <div class="max-w-7xl mx-auto px-6 py-5 flex justify-between items-center">
             <a href="javascript:void(0)" onclick="navigateTo('home')" class="text-xl font-serif italic font-semibold tracking-wide hover:opacity-70 transition-opacity">Mon Mothma.</a>
             
@@ -181,8 +159,16 @@
                     Головна
                     <span class="absolute -bottom-1 left-0 w-0 h-px bg-ink transition-all duration-300 group-hover:w-full"></span>
                 </a>
-                <a href="javascript:void(0)" onclick="navigateTo('photoprint')" class="hover:text-ink transition-colors relative group text-ink font-semibold">
+                <a href="javascript:void(0)" onclick="navigateTo('photoprint')" class="hover:text-ink transition-colors relative group text-ink font-bold">
                     Фотодрук
+                    <span class="absolute -bottom-1 left-0 w-0 h-px bg-ink transition-all duration-300 group-hover:w-full"></span>
+                </a>
+                <a href="javascript:void(0)" onclick="navigateTo('design')" class="hover:text-ink transition-colors relative group">
+                    Дизайн
+                    <span class="absolute -bottom-1 left-0 w-0 h-px bg-ink transition-all duration-300 group-hover:w-full"></span>
+                </a>
+                <a href="javascript:void(0)" onclick="navigateTo('webresources')" class="hover:text-ink transition-colors relative group">
+                    Вебресурси
                     <span class="absolute -bottom-1 left-0 w-0 h-px bg-ink transition-all duration-300 group-hover:w-full"></span>
                 </a>
                 <a href="#portfolio" onclick="navigateTo('home', 'portfolio')" class="hover:text-ink transition-colors relative group">
@@ -204,6 +190,8 @@
         <div id="mobile-menu" class="hidden absolute top-full left-0 w-full bg-paper border-b border-stone-200 p-6 flex-col space-y-4 md:hidden">
             <a href="javascript:void(0)" onclick="navigateTo('home'); document.getElementById('mobile-menu').classList.add('hidden')" class="block text-lg font-serif italic">Головна</a>
             <a href="javascript:void(0)" onclick="navigateTo('photoprint'); document.getElementById('mobile-menu').classList.add('hidden')" class="block text-lg font-serif italic">Фотодрук</a>
+            <a href="javascript:void(0)" onclick="navigateTo('design'); document.getElementById('mobile-menu').classList.add('hidden')" class="block text-lg font-serif italic">Дизайн</a>
+            <a href="javascript:void(0)" onclick="navigateTo('webresources'); document.getElementById('mobile-menu').classList.add('hidden')" class="block text-lg font-serif italic">Вебресурси</a>
             <a href="#portfolio" onclick="navigateTo('home', 'portfolio'); document.getElementById('mobile-menu').classList.add('hidden')" class="block text-lg font-serif italic">Роботи</a>
             <a href="#contact" onclick="navigateTo('home', 'contact'); document.getElementById('mobile-menu').classList.add('hidden')" class="block text-lg font-serif italic">Контакти</a>
         </div>
@@ -242,7 +230,6 @@
                             <div class="crop-mark crop-tr"></div>
                             <div class="crop-mark crop-bl"></div>
                             <div class="crop-mark crop-br"></div>
-                            <!-- ФОТО: Оновлено за вашим посиланням -->
                             <img src="https://i.pinimg.com/originals/28/57/cc/2857cc95bce8f9ee60370586504a1cb0.png" 
                                  alt="Кіт з цигаркою" 
                                  class="w-full h-auto object-cover aspect-[3/4] grayscale contrast-125">
@@ -289,7 +276,8 @@
                         <a href="#" class="text-sm border-b border-ink pb-1 mt-4 md:mt-0 hover:text-stone-600 transition-colors">Переглянути архів</a>
                     </div>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-24">
-                        <div class="group cursor-pointer reveal">
+                        <!-- Project 1: Vogue Architecture (Clickable) -->
+                        <div class="group cursor-pointer reveal" onclick="navigateTo('project-vogue')">
                             <div class="photo-print bg-white p-3 shadow-lg mb-6 relative">
                                 <div class="crop-mark crop-tl"></div>
                                 <div class="crop-mark crop-br"></div>
@@ -300,15 +288,19 @@
                                 <span class="text-xs font-mono text-stone-500">2024 / EDITORIAL</span>
                             </div>
                         </div>
-                        <div class="group cursor-pointer reveal delay-100 md:mt-24">
+
+                        <!-- Project 2: Monotonous Happiness (Clickable) -->
+                        <div class="group cursor-pointer reveal delay-100 md:mt-24" onclick="navigateTo('project-mono')">
                             <div class="photo-print bg-white p-3 shadow-lg mb-6 relative">
                                 <div class="crop-mark crop-tr"></div>
                                 <div class="crop-mark crop-bl"></div>
-                                <img src="https://images.unsplash.com/photo-1547658719-da2b51169166?q=80&w=1000&auto=format&fit=crop" alt="Брендинг" class="w-full aspect-[4/5] object-cover">
+                                <!-- ОНОВЛЕНЕ ФОТО -->
+                                <img src="https://i.pinimg.com/736x/4f/aa/7f/4faa7feb6e8fcd8adca0d14f09a598e0.jpg" alt="Філософія" class="w-full aspect-[4/5] object-cover">
                             </div>
                             <div class="flex justify-between items-baseline border-b border-stone-300 pb-2">
-                                <h3 class="text-xl font-medium">Mono Coffee</h3>
-                                <span class="text-xs font-mono text-stone-500">2023 / BRANDING</span>
+                                <!-- ОНОВЛЕНА НАЗВА ТА РІК -->
+                                <h3 class="text-xl font-medium">Monotonous happiness</h3>
+                                <span class="text-xs font-mono text-stone-500">2025 / PHILOSOPHY</span>
                             </div>
                         </div>
                     </div>
@@ -316,7 +308,96 @@
             </section>
         </div>
 
-        <!-- ================= PHOTO PRINT PAGE ================= -->
+        <!-- ================= PROJECT VOGUE PAGE ================= -->
+        <div id="page-project-vogue" class="page-hidden page-transition bg-paper min-h-screen z-50">
+            <div class="max-w-5xl mx-auto px-6 py-24">
+                <h1 class="text-5xl md:text-7xl font-serif mb-12 text-ink">Естетика <br><span class="italic text-stone-500">високої моди.</span></h1>
+                
+                <div class="grid grid-cols-1 md:grid-cols-12 gap-12 mb-20">
+                    <div class="md:col-span-8 space-y-8 text-lg font-light leading-relaxed text-stone-800">
+                        <p>
+                            Натхнення не приходить із порожнечі. Воно народжується на перетині дисциплін. У нашій роботі ми часто звертаємося до архітектоніки високої моди, запозичуючи принципи побудови форми у таких гігантів, як <strong>Vogue</strong> та <strong>Delpozo</strong>.
+                        </p>
+                        <p>
+                            Ми захоплюємося тим, як <em>Delpozo</em> працює з об'ємом та кольором. Їхні силуети — це скульптури з тканини, де кожна складка має своє математичне обґрунтування. Ми переносимо цю логіку у вебдизайн: кожен блок на сайті повинен мати свою "вагу" та "текстуру", створюючи візуальний ритм, подібний до дефіле.
+                        </p>
+                        <p>
+                            Окрему увагу ми приділяємо інтелектуальному мінімалізму <em>Jil Sander</em> та деконструктивізму <em>Maison Margiela</em>. Їхня здатність ламати стереотипи, оголюючи структуру одягу (а в нашому випадку — структуру інтерфейсу), вчить нас сміливості. Ми віримо, що "шви назовні" у дизайні можуть бути так само естетичними, як і в кутюрній сукні.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Галерея -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-24">
+                    <div class="photo-print bg-white p-3 shadow-md relative">
+                        <div class="crop-mark crop-tl"></div>
+                        <img src="https://images.unsplash.com/photo-1581044777550-4cfa60707c03?q=80&w=1000&auto=format&fit=crop" alt="Fashion Runway" class="w-full aspect-[3/4] object-cover grayscale">
+                        <span class="absolute bottom-4 left-4 text-[10px] font-mono text-stone-400">FIG. 1.0 — RUNWAY</span>
+                    </div>
+                    <div class="photo-print bg-white p-3 shadow-md relative md:mt-12">
+                        <div class="crop-mark crop-tr"></div>
+                        <img src="https://images.unsplash.com/photo-1483985988355-763728e1935b?q=80&w=1000&auto=format&fit=crop" alt="Editorial Shot" class="w-full aspect-[3/4] object-cover grayscale">
+                        <span class="absolute bottom-4 left-4 text-[10px] font-mono text-stone-400">FIG. 1.1 — TEXTURE</span>
+                    </div>
+                    <div class="photo-print bg-white p-3 shadow-md relative">
+                        <div class="crop-mark crop-bl"></div>
+                        <img src="https://images.unsplash.com/photo-1469334031218-e382a71b716b?q=80&w=1000&auto=format&fit=crop" alt="Backstage" class="w-full aspect-[3/4] object-cover grayscale">
+                        <span class="absolute bottom-4 left-4 text-[10px] font-mono text-stone-400">FIG. 1.2 — FORM</span>
+                    </div>
+                </div>
+
+                <div class="text-center">
+                    <button onclick="navigateTo('home', 'portfolio')" class="text-sm uppercase tracking-widest border-b border-ink pb-1 hover:text-stone-500 transition-colors">
+                        ← Повернутися
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- ================= PROJECT MONO PAGE ================= -->
+        <div id="page-project-mono" class="page-hidden page-transition bg-paper min-h-screen z-50">
+             <div class="max-w-5xl mx-auto px-6 py-24">
+                <h1 class="text-5xl md:text-7xl font-serif mb-12 text-ink">Monotonous <br><span class="italic text-stone-500">happiness.</span></h1>
+                
+                <div class="grid grid-cols-1 md:grid-cols-12 gap-12 mb-20">
+                    <div class="md:col-span-8 space-y-8 text-lg font-light leading-relaxed text-stone-800">
+                        <p class="first-letter:text-5xl first-letter:font-serif first-letter:mr-2 first-letter:float-left">
+                            Життя не тримається на містці. Воно плинне, як вода, і не терпить ані помилок, ані поступок. Ми часто чуємо про "боротьбу за життя", але в нашій філософії це поняття хибне. Боротися за життя — це гріх для тих, хто цю боротьбу сам і підсилює. Життя не потребує боротьби; воно потребує присутності.
+                        </p>
+                        <p>
+                            Найважливіше, що у вас є, — це ви самі. Власність себе — це єдиний справжній капітал. Особистість — явище надзвичайно зибуче, ефемерне. Сьогодні ви відчуваєте себе цілісним, а завтра світ намагається розмити ваші кордони. Якщо ви маєте це відчуття "Я", тримайте його всіма силами. Моліться, щоб не втратити цей дар у шумі буденності.
+                        </p>
+                        <p>
+                            Ця філософія прямо впливає на наші проєкти. Ми не біжимо за трендами сліпо, але ми завжди "тримаємо хвіст по вітру". Ми відчуваємо зміни, адаптуємося, але ніколи не втрачаємо свого стрижня. Монотонне щастя — це не нудьга. Це стабільність усвідомлення себе у хаосі світу.
+                        </p>
+                    </div>
+                </div>
+
+                 <!-- Галерея -->
+                 <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-24">
+                    <div class="photo-print bg-white p-3 shadow-md relative">
+                        <div class="crop-mark crop-tl"></div>
+                        <!-- Абстрактне/філософське фото -->
+                        <img src="https://images.unsplash.com/photo-1505322022379-7c3353ee6291?q=80&w=1000&auto=format&fit=crop" alt="Philosophy" class="w-full aspect-square object-cover grayscale">
+                         <span class="absolute bottom-4 left-4 text-[10px] font-mono text-stone-400">FIG. 2.0 — FLUIDITY</span>
+                    </div>
+                    <div class="photo-print bg-white p-3 shadow-md relative md:mt-12">
+                        <div class="crop-mark crop-br"></div>
+                        <!-- ОНОВЛЕНЕ ФОТО (Essence) -->
+                        <img src="https://i.pinimg.com/736x/f3/07/02/f30702fe124018a2359c713276a2845a.jpg" alt="Self" class="w-full aspect-square object-cover grayscale">
+                         <span class="absolute bottom-4 left-4 text-[10px] font-mono text-stone-400">FIG. 2.1 — ESSENCE</span>
+                    </div>
+                </div>
+
+                <div class="text-center">
+                    <button onclick="navigateTo('home', 'portfolio')" class="text-sm uppercase tracking-widest border-b border-ink pb-1 hover:text-stone-500 transition-colors">
+                        ← Повернутися
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- ================= PHOTO PRINT PAGE (EXISTING) ================= -->
         <div id="page-photoprint" class="page-hidden page-transition">
             <!-- Заголовок сторінки -->
             <div class="py-24 bg-white border-b border-stone-200">
@@ -422,20 +503,226 @@
 
             <!-- Як замовити -->
             <section class="py-24 bg-ink text-paper relative overflow-hidden">
-                <!-- Декоративна лінія -->
                 <div class="absolute top-0 left-1/2 -translate-x-1/2 w-px h-20 bg-stone-700"></div>
-
                 <div class="max-w-3xl mx-auto px-6 text-center reveal">
                     <h2 class="text-3xl md:text-4xl font-serif mb-8 text-white">Як замовити друк?</h2>
                     <p class="text-stone-400 mb-10 leading-relaxed font-light">
                         Процес простий: надішліть ваші фотографії на нашу електронну пошту або в месенджер. Обов'язково вкажіть бажаний розмір та тип паперу (матовий чи глянцевий). Ми перевіримо файли та зв'яжемося з вами для підтвердження.
                     </p>
                     <div class="flex flex-col md:flex-row gap-6 justify-center">
-                        <a href="https://t.me/mon_mothma_design" target="_blank" class="inline-block border border-white px-8 py-3 text-sm uppercase tracking-widest hover:bg-white hover:text-ink transition-colors duration-300">
-                            Написати в Telegram
+                        <a href="https://t.me/mon_mothma_design" target="_blank" class="inline-block border border-white px-8 py-3 text-sm uppercase tracking-widest hover:bg-white hover:text-ink transition-colors duration-300">Написати в Telegram</a>
+                        <a href="mailto:mon.mothma.design@gmail.com" class="inline-block border border-stone-600 px-8 py-3 text-sm uppercase tracking-widest hover:border-white hover:text-white transition-colors duration-300 text-stone-400">Надіслати Email</a>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- ================= DESIGN PAGE (EXISTING) ================= -->
+        <div id="page-design" class="page-hidden page-transition">
+            <!-- Заголовок сторінки -->
+            <div class="py-24 bg-white border-b border-stone-200">
+                <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+                    <div class="reveal active">
+                        <span class="text-xs font-mono text-stone-400 mb-4 block">[ GRAPHIC MATTER ]</span>
+                        <h1 class="text-5xl md:text-7xl font-serif mb-6 text-ink">Візуальна <br><span class="italic text-stone-500">тиша.</span></h1>
+                        <p class="text-lg text-stone-600 max-w-md leading-relaxed">
+                            Ми не створюємо просто графіку — ми створюємо відчуття. Кожен піксель, кожен штрих та кожен міліметр простору працюють на ідею довершеності. Це не комерція, це мистецтво комунікації.
+                        </p>
+                    </div>
+                    <div class="reveal active delay-100 hidden md:block">
+                        <div class="photo-print bg-white p-3 shadow-xl rotate-1 max-w-sm ml-auto relative">
+                             <div class="crop-mark crop-tl"></div>
+                             <div class="crop-mark crop-br"></div>
+                             <img src="https://images.unsplash.com/photo-1550684848-fac1c5b4e853?q=80&w=1000&auto=format&fit=crop" alt="Графічний дизайн" class="w-full aspect-square object-cover grayscale">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Пропозиція та Естетика -->
+            <section class="py-24 px-6 relative">
+                <div class="max-w-5xl mx-auto">
+                    <div class="mb-20 text-center reveal">
+                         <h2 class="text-3xl font-serif italic mb-6">Архітектура смислів</h2>
+                         <p class="text-stone-600 max-w-2xl mx-auto">
+                             Від лаконічної візитівки до масштабної айдентики. Ми розробляємо дизайн, що дихає, говорить пошепки, але звучить гучно у свідомості вашого клієнта.
+                         </p>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-16 reveal">
+                        <!-- Колонка 1 -->
+                        <div class="space-y-12">
+                            <div class="group">
+                                <span class="text-xs font-mono text-stone-400 block mb-2">01 / IDENTITY</span>
+                                <h3 class="text-2xl font-medium mb-3 group-hover:text-stone-500 transition-colors">Макети та Айдентика</h3>
+                                <p class="text-sm text-stone-600 leading-relaxed">
+                                    Створення цілісного візуального коду. Логотипи, що стають символами. Брендбуки, що слугують конституцією стилю. Ми проєктуємо не просто зображення, а систему цінностей.
+                                </p>
+                            </div>
+                            <div class="group">
+                                <span class="text-xs font-mono text-stone-400 block mb-2">02 / PRINT</span>
+                                <h3 class="text-2xl font-medium mb-3 group-hover:text-stone-500 transition-colors">Постери та Листівки</h3>
+                                <p class="text-sm text-stone-600 leading-relaxed">
+                                    Паперова естетика. Дизайн, що приємно тримати в руках. Від мінімалістичних запрошень до концептуальних постерів, що стають окрасою інтер'єру.
+                                </p>
+                            </div>
+                        </div>
+                         <!-- Колонка 2 -->
+                         <div class="space-y-12">
+                            <div class="group">
+                                <span class="text-xs font-mono text-stone-400 block mb-2">03 / BUSINESS</span>
+                                <h3 class="text-2xl font-medium mb-3 group-hover:text-stone-500 transition-colors">Візитівки</h3>
+                                <p class="text-sm text-stone-600 leading-relaxed">
+                                    Ваше перше враження. Ми створюємо візитівки, які не хочеться ховати у кишеню. Вибір паперу, тиснення, простір — кожна деталь має значення.
+                                </p>
+                            </div>
+                            <div class="group">
+                                <span class="text-xs font-mono text-stone-400 block mb-2">04 / EDITORIAL</span>
+                                <h3 class="text-2xl font-medium mb-3 group-hover:text-stone-500 transition-colors">Едіторіал</h3>
+                                <p class="text-sm text-stone-600 leading-relaxed">
+                                    Верстка багатосторінкових видань, журналів та каталогів. Робота з сіткою та типографікою для створення комфортного та естетичного досвіду читання.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Процес (Timeline) -->
+            <section class="py-24 bg-white border-t border-stone-200">
+                <div class="max-w-4xl mx-auto px-6">
+                    <h2 class="text-3xl font-serif mb-16 text-center">Алгоритм створення</h2>
+                    <div class="space-y-12 relative border-l border-ink ml-4 md:ml-0 pl-8 md:pl-0">
+                        <div class="md:flex justify-between items-baseline reveal">
+                            <div class="md:w-1/3 text-right pr-12 hidden md:block">
+                                <span class="text-4xl font-serif text-stone-200">I</span>
+                            </div>
+                            <div class="md:w-2/3 relative">
+                                <span class="absolute -left-[41px] top-2 w-5 h-px bg-ink hidden md:block"></span>
+                                <span class="absolute -left-[37px] top-2 w-2 h-2 rounded-full bg-ink md:hidden"></span>
+                                <h3 class="text-xl font-medium mb-2">Занурення</h3>
+                                <p class="text-sm text-stone-600">Ми вивчаємо ваш світ. Аналізуємо ідею, контекст та мету. Це етап глибокої емпатії та досліджень.</p>
+                            </div>
+                        </div>
+                        <div class="md:flex justify-between items-baseline reveal">
+                            <div class="md:w-1/3 text-right pr-12 hidden md:block">
+                                <span class="text-4xl font-serif text-stone-200">II</span>
+                            </div>
+                            <div class="md:w-2/3 relative">
+                                <span class="absolute -left-[41px] top-2 w-5 h-px bg-ink hidden md:block"></span>
+                                <span class="absolute -left-[37px] top-2 w-2 h-2 rounded-full bg-ink md:hidden"></span>
+                                <h3 class="text-xl font-medium mb-2">Кристалізація</h3>
+                                <p class="text-sm text-stone-600">Пошук форми. Ескізи, референси, відбір шрифтових пар. Ми відсікаємо зайве, залишаючи лише суть.</p>
+                            </div>
+                        </div>
+                        <div class="md:flex justify-between items-baseline reveal">
+                            <div class="md:w-1/3 text-right pr-12 hidden md:block">
+                                <span class="text-4xl font-serif text-stone-200">III</span>
+                            </div>
+                            <div class="md:w-2/3 relative">
+                                <span class="absolute -left-[41px] top-2 w-5 h-px bg-ink hidden md:block"></span>
+                                <span class="absolute -left-[37px] top-2 w-2 h-2 rounded-full bg-ink md:hidden"></span>
+                                <h3 class="text-xl font-medium mb-2">Втілення</h3>
+                                <p class="text-sm text-stone-600">Фіналізація макету. Підготовка до друку або публікації. Передача файлів у бездоганній якості.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="text-center mt-20 reveal">
+                        <p class="text-stone-500 italic mb-8">"Краса врятує світ, якщо вона має структуру."</p>
+                        <a href="#contact" onclick="navigateTo('home', 'contact')" class="inline-block border border-ink px-10 py-4 text-sm uppercase tracking-widest hover:bg-ink hover:text-paper transition-colors duration-500">
+                            Обговорити ідею
                         </a>
-                        <a href="mailto:mon.mothma.design@gmail.com" class="inline-block border border-stone-600 px-8 py-3 text-sm uppercase tracking-widest hover:border-white hover:text-white transition-colors duration-300 text-stone-400">
-                            Надіслати Email
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- ================= WEB RESOURCES PAGE (EXISTING) ================= -->
+        <div id="page-webresources" class="page-hidden page-transition">
+             <!-- Заголовок сторінки -->
+             <div class="py-24 bg-white border-b border-stone-200">
+                <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+                    <div class="reveal active">
+                        <span class="text-xs font-mono text-stone-400 mb-4 block">[ DIGITAL SPACE ]</span>
+                        <h1 class="text-5xl md:text-7xl font-serif mb-6 text-ink">Цифровий <br><span class="italic text-stone-500">простір.</span></h1>
+                        <p class="text-lg text-stone-600 max-w-md leading-relaxed">
+                            Ваш сайт — це ваш цифровий дім. Він має бути не лише функціональним, але й емоційно наповненим. Ми проєктуємо інтерактивні досвіди, де технологія служить естетиці.
+                        </p>
+                    </div>
+                    <div class="reveal active delay-100 hidden md:block">
+                        <div class="photo-print bg-white p-3 shadow-xl -rotate-1 max-w-sm ml-auto relative">
+                             <div class="crop-mark crop-tl"></div>
+                             <div class="crop-mark crop-br"></div>
+                             <img src="https://images.unsplash.com/photo-1547658719-da2b51169166?q=80&w=1000&auto=format&fit=crop" alt="Веброзробка" class="w-full aspect-square object-cover grayscale">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Інформаційна панель -->
+            <section class="py-24 px-6 bg-paper">
+                <div class="max-w-5xl mx-auto">
+                    <div class="mb-16 reveal">
+                        <h2 class="text-3xl font-serif mb-6">Специфікація розробки</h2>
+                        <p class="text-stone-600 leading-relaxed max-w-2xl">
+                            Ми створюємо вебресурси, що працюють як швейцарський годинник. Чистий код, адаптивність, швидкість завантаження. Кожен проєкт — це індивідуальне рішення, адаптоване під ваші потреби, а не шаблонна копія.
+                        </p>
+                    </div>
+
+                    <!-- Таблиця/Панель -->
+                    <div class="border border-stone-300 bg-white reveal">
+                        <div class="grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-stone-300">
+                            <!-- Блок 1 -->
+                            <div class="p-8 hover:bg-stone-50 transition-colors">
+                                <div class="w-10 h-10 border border-stone-300 rounded-full flex items-center justify-center mb-6 text-stone-400 font-serif italic">i</div>
+                                <h3 class="text-lg font-medium mb-4">Landing Page</h3>
+                                <p class="text-sm text-stone-500 mb-6">
+                                    Односторінковий сайт для презентації продукту чи послуги. Лаконічний, сфокусований на дії, з ідеально вивіреною типографікою та анімацією.
+                                </p>
+                                <ul class="text-xs text-stone-400 font-mono space-y-2">
+                                    <li>— Адаптивність</li>
+                                    <li>— SEO-оптимізація</li>
+                                    <li>— Інтерактивні форми</li>
+                                </ul>
+                            </div>
+                            <!-- Блок 2 -->
+                            <div class="p-8 hover:bg-stone-50 transition-colors">
+                                <div class="w-10 h-10 border border-stone-300 rounded-full flex items-center justify-center mb-6 text-stone-400 font-serif italic">ii</div>
+                                <h3 class="text-lg font-medium mb-4">Portfolio</h3>
+                                <p class="text-sm text-stone-500 mb-6">
+                                    Візитівка митця або агенції. Галерея робіт, що розкриває ваш потенціал. Мінімалістичний інтерфейс, що не відволікає від контенту.
+                                </p>
+                                <ul class="text-xs text-stone-400 font-mono space-y-2">
+                                    <li>— Зручна навігація</li>
+                                    <li>— Висока швидкість</li>
+                                    <li>— Підтримка медіа</li>
+                                </ul>
+                            </div>
+                            <!-- Блок 3 -->
+                            <div class="p-8 hover:bg-stone-50 transition-colors">
+                                <div class="w-10 h-10 border border-stone-300 rounded-full flex items-center justify-center mb-6 text-stone-400 font-serif italic">iii</div>
+                                <h3 class="text-lg font-medium mb-4">Corporate</h3>
+                                <p class="text-sm text-stone-500 mb-6">
+                                    Багатосторінковий ресурс для бізнесу. Структурована подача інформації, новини, блог, інтеграція з сервісами аналітики.
+                                </p>
+                                <ul class="text-xs text-stone-400 font-mono space-y-2">
+                                    <li>— CMS системи</li>
+                                    <li>— Безпека даних</li>
+                                    <li>— Масштабованість</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <!-- Нижній рядок панелі -->
+                        <div class="border-t border-stone-300 p-6 flex flex-col md:flex-row justify-between items-center bg-stone-100 text-xs font-mono text-stone-500">
+                            <span>STACK: HTML5 / TAILWIND / JS / REACT</span>
+                            <span class="mt-2 md:mt-0">STATUS: AVAILABLE FOR COMMISSION</span>
+                        </div>
+                    </div>
+
+                    <div class="text-center mt-20 reveal">
+                         <a href="#contact" onclick="navigateTo('home', 'contact')" class="inline-block border border-ink px-10 py-4 text-sm uppercase tracking-widest hover:bg-ink hover:text-paper transition-colors duration-500">
+                            Замовити вебресурс
                         </a>
                     </div>
                 </div>
@@ -467,7 +754,7 @@
         <div class="max-w-4xl mx-auto px-6">
             <div class="text-center mb-16 reveal">
                 <h2 class="text-4xl md:text-5xl font-serif mb-4">Зв'яжіться з нами</h2>
-                <p class="text-stone-600 mb-8">Для замовлення дизайну або фотодруку.</p>
+                <p class="text-stone-600 mb-8">Для замовлення дизайну, вебресурсу або фотодруку.</p>
                 
                 <!-- Соціальні іконки -->
                 <div class="flex justify-center gap-8 items-center mb-12">
@@ -481,12 +768,12 @@
                         <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21.198 2.433a2.242 2.242 0 0 0-1.022.215l-8.609 3.33c-2.068.8-4.133 1.598-5.724 2.21a405.15 405.15 0 0 1-2.849 1.09c-.42.147-.99.332-1.473.901-.728.968.193 1.798.919 2.286 1.61.516 3.275 1.009 4.654 1.472.509 1.793.997 3.592 1.48 5.388.16.36.506.494.864.498l-.002.018s.281.028.555-.038a2.1 2.1 0 0 0 .933-.517c.345-.324 1.28-1.244 1.811-1.764l3.999 2.952.032.018s.442.311 1.09.355c.324.022.75-.04 1.116-.308.37-.27.613-.702.728-1.196.342-1.492 2.61-12.263 2.975-14.028l.014-.075-.048.019a2.89 2.89 0 0 0-1.565-.953z"/></svg>
                     </a>
                     
-                    <!-- Viber (ОНОВЛЕНО) -->
+                    <!-- Viber -->
                     <a href="viber://chat?number=%2B380931980588" class="text-ink hover:text-stone-500 transition-all duration-300 hover:scale-110" title="Viber">
                         <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path><path d="M14.05 2a9 9 0 0 1 8 7.94"></path><path d="M14.05 6A5 5 0 0 1 18 10"></path></svg>
                     </a>
 
-                    <!-- WhatsApp (ОНОВЛЕНО) -->
+                    <!-- WhatsApp -->
                     <a href="https://wa.me/380931980588" target="_blank" class="text-ink hover:text-stone-500 transition-all duration-300 hover:scale-110" title="WhatsApp">
                         <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21l1.65-3.8a9 9 0 1 1 3.4 2.9L3 21"></path></svg>
                     </a>
@@ -543,6 +830,8 @@
                 <ul class="space-y-3 text-sm text-stone-300">
                     <li><a href="javascript:void(0)" onclick="navigateTo('home')" class="hover:text-white transition-colors">Головна</a></li>
                     <li><a href="javascript:void(0)" onclick="navigateTo('photoprint')" class="hover:text-white transition-colors">Фотодрук</a></li>
+                    <li><a href="javascript:void(0)" onclick="navigateTo('design')" class="hover:text-white transition-colors">Дизайн</a></li>
+                    <li><a href="javascript:void(0)" onclick="navigateTo('webresources')" class="hover:text-white transition-colors">Вебресурси</a></li>
                     <li><a href="#portfolio" class="hover:text-white transition-colors">Портфоліо</a></li>
                     <li><a href="#contact" class="hover:text-white transition-colors">Контакти</a></li>
                 </ul>
@@ -583,25 +872,37 @@
 
         // Функція навігації (SPA роутинг)
         function navigateTo(pageId, anchorId = null) {
-            const homePage = document.getElementById('page-home');
-            const printPage = document.getElementById('page-photoprint');
+            // Список усіх сторінок (ID)
+            const pages = ['home', 'photoprint', 'design', 'webresources', 'project-vogue', 'project-mono'];
             
             // Плавний скрол до верху
             if (!anchorId) {
                 window.scrollTo({ top: 0, behavior: 'smooth' });
             }
 
-            if (pageId === 'home') {
-                homePage.classList.remove('page-hidden');
-                homePage.classList.add('page-visible');
-                printPage.classList.remove('page-visible');
-                printPage.classList.add('page-hidden');
-            } else if (pageId === 'photoprint') {
-                homePage.classList.remove('page-visible');
-                homePage.classList.add('page-hidden');
-                printPage.classList.remove('page-hidden');
-                printPage.classList.add('page-visible');
+            // Логіка перемикання видимості сторінок
+            pages.forEach(p => {
+                const el = document.getElementById('page-' + p);
+                if (el) {
+                    if (p === pageId) {
+                        el.classList.remove('page-hidden');
+                        el.classList.add('page-visible');
+                    } else {
+                        el.classList.remove('page-visible');
+                        el.classList.add('page-hidden');
+                    }
+                }
+            });
+
+            // Логіка приховування навігації (Хедера) - ВИДАЛЕНО, ТЕПЕР ХЕДЕР ЗАВЖДИ ВИДИМИЙ
+            /*
+            const navbar = document.getElementById('navbar');
+            if (pageId === 'project-vogue' || pageId === 'project-mono') {
+                navbar.classList.add('-translate-y-full'); // Ховаємо хедер вгору
+            } else {
+                navbar.classList.remove('-translate-y-full'); // Показуємо хедер
             }
+            */
 
             // Якщо є якір (наприклад #contact), скролимо до нього після зміни сторінки
             if (anchorId) {
@@ -627,7 +928,7 @@
                 });
             }, observerOptions);
 
-            // Спостерігаємо за всіма елементами .reveal на обох "сторінках"
+            // Спостерігаємо за всіма елементами .reveal на всіх сторінках
             document.querySelectorAll('.reveal').forEach(el => {
                 observer.observe(el);
             });
