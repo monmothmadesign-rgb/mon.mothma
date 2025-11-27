@@ -135,6 +135,25 @@
             border-bottom: none;
         }
 
+        /* Стилі для специфікацій на сторінках вебресурсів */
+        .tech-spec-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 1rem 0;
+            border-bottom: 1px solid #E5E5E5;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.9rem;
+        }
+        .tech-spec-label {
+            color: #8C8C8C;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        .tech-spec-value {
+            color: #1A1A1A;
+            text-align: right;
+        }
+
         ::-webkit-scrollbar { width: 8px; }
         ::-webkit-scrollbar-track { background: #F5F5F0; }
         ::-webkit-scrollbar-thumb { background: #8C8C8C; border-radius: 4px; }
@@ -149,7 +168,6 @@
     <div class="grain-overlay"></div>
 
     <!-- Навігація -->
-    <!-- Z-INDEX змінено на 60, щоб бути поверх сторінок проєктів -->
     <nav class="fixed top-0 left-0 w-full z-[60] bg-paper/90 backdrop-blur-sm border-b border-stone-200 transition-all duration-300 transform translate-y-0" id="navbar">
         <div class="max-w-7xl mx-auto px-6 py-5 flex justify-between items-center">
             <a href="javascript:void(0)" onclick="navigateTo('home')" class="text-xl font-serif italic font-semibold tracking-wide hover:opacity-70 transition-opacity">Mon Mothma.</a>
@@ -294,11 +312,9 @@
                             <div class="photo-print bg-white p-3 shadow-lg mb-6 relative">
                                 <div class="crop-mark crop-tr"></div>
                                 <div class="crop-mark crop-bl"></div>
-                                <!-- ОНОВЛЕНЕ ФОТО -->
                                 <img src="https://i.pinimg.com/736x/4f/aa/7f/4faa7feb6e8fcd8adca0d14f09a598e0.jpg" alt="Філософія" class="w-full aspect-[4/5] object-cover">
                             </div>
                             <div class="flex justify-between items-baseline border-b border-stone-300 pb-2">
-                                <!-- ОНОВЛЕНА НАЗВА ТА РІК -->
                                 <h3 class="text-xl font-medium">Monotonous happiness</h3>
                                 <span class="text-xs font-mono text-stone-500">2025 / PHILOSOPHY</span>
                             </div>
@@ -377,13 +393,11 @@
                  <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-24">
                     <div class="photo-print bg-white p-3 shadow-md relative">
                         <div class="crop-mark crop-tl"></div>
-                        <!-- Абстрактне/філософське фото -->
                         <img src="https://images.unsplash.com/photo-1505322022379-7c3353ee6291?q=80&w=1000&auto=format&fit=crop" alt="Philosophy" class="w-full aspect-square object-cover grayscale">
                          <span class="absolute bottom-4 left-4 text-[10px] font-mono text-stone-400">FIG. 2.0 — FLUIDITY</span>
                     </div>
                     <div class="photo-print bg-white p-3 shadow-md relative md:mt-12">
                         <div class="crop-mark crop-br"></div>
-                        <!-- ОНОВЛЕНЕ ФОТО (Essence) -->
                         <img src="https://i.pinimg.com/736x/f3/07/02/f30702fe124018a2359c713276a2845a.jpg" alt="Self" class="w-full aspect-square object-cover grayscale">
                          <span class="absolute bottom-4 left-4 text-[10px] font-mono text-stone-400">FIG. 2.1 — ESSENCE</span>
                     </div>
@@ -511,7 +525,7 @@
                     </p>
                     <div class="flex flex-col md:flex-row gap-6 justify-center">
                         <a href="https://t.me/mon_mothma_design" target="_blank" class="inline-block border border-white px-8 py-3 text-sm uppercase tracking-widest hover:bg-white hover:text-ink transition-colors duration-300">Написати в Telegram</a>
-                        <a href="mailto:mon.mothma.design@gmail.com" class="inline-block border border-stone-600 px-8 py-3 text-sm uppercase tracking-widest hover:border-white hover:text-white transition-colors duration-300 text-stone-400">Надіслати Email</a>
+                        <button onclick="openEmailModal()" class="inline-block border border-stone-600 px-8 py-3 text-sm uppercase tracking-widest hover:border-white hover:text-white transition-colors duration-300 text-stone-400">Надіслати Email</button>
                     </div>
                 </div>
             </section>
@@ -638,7 +652,7 @@
             </section>
         </div>
 
-        <!-- ================= WEB RESOURCES PAGE (EXISTING) ================= -->
+        <!-- ================= WEB RESOURCES PAGE ================= -->
         <div id="page-webresources" class="page-hidden page-transition">
              <!-- Заголовок сторінки -->
              <div class="py-24 bg-white border-b border-stone-200">
@@ -666,7 +680,7 @@
                     <div class="mb-16 reveal">
                         <h2 class="text-3xl font-serif mb-6">Специфікація розробки</h2>
                         <p class="text-stone-600 leading-relaxed max-w-2xl">
-                            Ми створюємо вебресурси, що працюють як швейцарський годинник. Чистий код, адаптивність, швидкість завантаження. Кожен проєкт — це індивідуальне рішення, адаптоване під ваші потреби, а не шаблонна копія.
+                            Ми створюємо вебресурси, що працюють як швейцарський годинник. Оберіть формат, який відповідає вашим цілям.
                         </p>
                     </div>
 
@@ -674,43 +688,40 @@
                     <div class="border border-stone-300 bg-white reveal">
                         <div class="grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-stone-300">
                             <!-- Блок 1 -->
-                            <div class="p-8 hover:bg-stone-50 transition-colors">
-                                <div class="w-10 h-10 border border-stone-300 rounded-full flex items-center justify-center mb-6 text-stone-400 font-serif italic">i</div>
-                                <h3 class="text-lg font-medium mb-4">Landing Page</h3>
+                            <div class="p-8 hover:bg-stone-50 transition-colors cursor-pointer group" onclick="navigateTo('web-landing')">
+                                <div class="w-10 h-10 border border-stone-300 rounded-full flex items-center justify-center mb-6 text-stone-400 font-serif italic group-hover:border-ink group-hover:text-ink transition-colors">i</div>
+                                <h3 class="text-lg font-medium mb-4 group-hover:underline decoration-1 underline-offset-4">Landing Page</h3>
                                 <p class="text-sm text-stone-500 mb-6">
-                                    Односторінковий сайт для презентації продукту чи послуги. Лаконічний, сфокусований на дії, з ідеально вивіреною типографікою та анімацією.
+                                    Односторінковий сайт для презентації продукту чи послуги. Лаконічний, сфокусований на дії.
                                 </p>
-                                <ul class="text-xs text-stone-400 font-mono space-y-2">
-                                    <li>— Адаптивність</li>
-                                    <li>— SEO-оптимізація</li>
-                                    <li>— Інтерактивні форми</li>
-                                </ul>
+                                <div class="text-xs text-stone-400 font-mono flex items-center gap-2">
+                                    <span>ДЕТАЛЬНІШЕ</span>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="transform group-hover:translate-x-1 transition-transform"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                                </div>
                             </div>
                             <!-- Блок 2 -->
-                            <div class="p-8 hover:bg-stone-50 transition-colors">
-                                <div class="w-10 h-10 border border-stone-300 rounded-full flex items-center justify-center mb-6 text-stone-400 font-serif italic">ii</div>
-                                <h3 class="text-lg font-medium mb-4">Portfolio</h3>
+                            <div class="p-8 hover:bg-stone-50 transition-colors cursor-pointer group" onclick="navigateTo('web-portfolio')">
+                                <div class="w-10 h-10 border border-stone-300 rounded-full flex items-center justify-center mb-6 text-stone-400 font-serif italic group-hover:border-ink group-hover:text-ink transition-colors">ii</div>
+                                <h3 class="text-lg font-medium mb-4 group-hover:underline decoration-1 underline-offset-4">Portfolio</h3>
                                 <p class="text-sm text-stone-500 mb-6">
-                                    Візитівка митця або агенції. Галерея робіт, що розкриває ваш потенціал. Мінімалістичний інтерфейс, що не відволікає від контенту.
+                                    Візитівка митця або агенції. Галерея робіт, що розкриває ваш потенціал.
                                 </p>
-                                <ul class="text-xs text-stone-400 font-mono space-y-2">
-                                    <li>— Зручна навігація</li>
-                                    <li>— Висока швидкість</li>
-                                    <li>— Підтримка медіа</li>
-                                </ul>
+                                <div class="text-xs text-stone-400 font-mono flex items-center gap-2">
+                                    <span>ДЕТАЛЬНІШЕ</span>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="transform group-hover:translate-x-1 transition-transform"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                                </div>
                             </div>
                             <!-- Блок 3 -->
-                            <div class="p-8 hover:bg-stone-50 transition-colors">
-                                <div class="w-10 h-10 border border-stone-300 rounded-full flex items-center justify-center mb-6 text-stone-400 font-serif italic">iii</div>
-                                <h3 class="text-lg font-medium mb-4">Corporate</h3>
+                            <div class="p-8 hover:bg-stone-50 transition-colors cursor-pointer group" onclick="navigateTo('web-corporate')">
+                                <div class="w-10 h-10 border border-stone-300 rounded-full flex items-center justify-center mb-6 text-stone-400 font-serif italic group-hover:border-ink group-hover:text-ink transition-colors">iii</div>
+                                <h3 class="text-lg font-medium mb-4 group-hover:underline decoration-1 underline-offset-4">Corporate</h3>
                                 <p class="text-sm text-stone-500 mb-6">
-                                    Багатосторінковий ресурс для бізнесу. Структурована подача інформації, новини, блог, інтеграція з сервісами аналітики.
+                                    Багатосторінковий ресурс для бізнесу. Структурована подача інформації, новини, блог.
                                 </p>
-                                <ul class="text-xs text-stone-400 font-mono space-y-2">
-                                    <li>— CMS системи</li>
-                                    <li>— Безпека даних</li>
-                                    <li>— Масштабованість</li>
-                                </ul>
+                                <div class="text-xs text-stone-400 font-mono flex items-center gap-2">
+                                    <span>ДЕТАЛЬНІШЕ</span>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="transform group-hover:translate-x-1 transition-transform"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                                </div>
                             </div>
                         </div>
                         <!-- Нижній рядок панелі -->
@@ -721,12 +732,180 @@
                     </div>
 
                     <div class="text-center mt-20 reveal">
-                         <a href="#contact" onclick="navigateTo('home', 'contact')" class="inline-block border border-ink px-10 py-4 text-sm uppercase tracking-widest hover:bg-ink hover:text-paper transition-colors duration-500">
+                         <button onclick="openEmailModal()" class="inline-block border border-ink px-10 py-4 text-sm uppercase tracking-widest hover:bg-ink hover:text-paper transition-colors duration-500">
                             Замовити вебресурс
-                        </a>
+                        </button>
                     </div>
                 </div>
             </section>
+        </div>
+
+        <!-- ================= WEB: LANDING PAGE ================= -->
+        <div id="page-web-landing" class="page-hidden page-transition bg-paper min-h-screen z-50">
+            <div class="max-w-5xl mx-auto px-6 py-24">
+                <h1 class="text-5xl md:text-7xl font-serif mb-12 text-ink">Цифровий <br><span class="italic text-stone-500">імпульс.</span></h1>
+                
+                <div class="grid grid-cols-1 md:grid-cols-12 gap-12 mb-20">
+                    <div class="md:col-span-8 space-y-8 text-lg font-light leading-relaxed text-stone-800">
+                        <p>
+                            Лендінг — це не просто сторінка в інтернеті. Це сконцентрована енергія вашого продукту, спрямована в одну точку. Це історія, яку ми розповідаємо від першого скролу до фінальної кнопки заклику до дії.
+                        </p>
+                        <p>
+                            Ми віримо в силу "одного екрану". Ваше повідомлення має бути настільки чітким та візуально довершеним, щоб у користувача не виникло бажання закрити вкладку. Ми використовуємо принципи кінематографічного монтажу, щоб керувати увагою відвідувача, ведучи його по сценарію вашого успіху.
+                        </p>
+                        <!-- Таблиця характеристик -->
+                        <div class="border-t border-stone-300 mt-12 pt-8">
+                            <div class="tech-spec-row">
+                                <span class="tech-spec-label">Мета</span>
+                                <span class="tech-spec-value">Конверсія та Продаж</span>
+                            </div>
+                            <div class="tech-spec-row">
+                                <span class="tech-spec-label">Структура</span>
+                                <span class="tech-spec-value">Лінійна нарація</span>
+                            </div>
+                            <div class="tech-spec-row">
+                                <span class="tech-spec-label">Термін</span>
+                                <span class="tech-spec-value">7–14 днів</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Галерея -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-24">
+                    <div class="photo-print bg-white p-3 shadow-md relative">
+                        <div class="crop-mark crop-tl"></div>
+                        <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1000&auto=format&fit=crop" alt="Analytics" class="w-full aspect-square object-cover grayscale">
+                        <span class="absolute bottom-4 left-4 text-[10px] font-mono text-stone-400">DATA DRIVEN</span>
+                    </div>
+                    <div class="photo-print bg-white p-3 shadow-md relative md:mt-12">
+                        <div class="crop-mark crop-br"></div>
+                        <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1000&auto=format&fit=crop" alt="UI Design" class="w-full aspect-square object-cover grayscale">
+                        <span class="absolute bottom-4 left-4 text-[10px] font-mono text-stone-400">VISUAL IMPACT</span>
+                    </div>
+                </div>
+
+                <div class="flex flex-col items-center gap-8">
+                    <button onclick="openEmailModal()" class="inline-block border border-ink px-10 py-4 text-sm uppercase tracking-widest hover:bg-ink hover:text-paper transition-colors duration-500">
+                        Замовити Landing Page
+                    </button>
+                    <button onclick="navigateTo('webresources')" class="text-sm uppercase tracking-widest border-b border-ink pb-1 hover:text-stone-500 transition-colors">
+                        ← Повернутися
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- ================= WEB: PORTFOLIO ================= -->
+        <div id="page-web-portfolio" class="page-hidden page-transition bg-paper min-h-screen z-50">
+            <div class="max-w-5xl mx-auto px-6 py-24">
+                <h1 class="text-5xl md:text-7xl font-serif mb-12 text-ink">Рама для <br><span class="italic text-stone-500">шедевра.</span></h1>
+                
+                <div class="grid grid-cols-1 md:grid-cols-12 gap-12 mb-20">
+                    <div class="md:col-span-8 space-y-8 text-lg font-light leading-relaxed text-stone-800">
+                        <p>
+                            Портфоліо — це дзеркало митця. Головне правило хорошого портфоліо: дизайн сайту не повинен сперечатися з роботами автора. Він має бути невидимим, як повітря, але відчутним, як атмосфера в галереї.
+                        </p>
+                        <p>
+                            Ми створюємо простір тиші, де голос ваших робіт звучить найгучніше. Мінімалізм, багато "повітря", вишукана типографіка — це інструменти, якими ми будуємо п'єдестал для вашого таланту. Ваше ім'я стане брендом, а ваш сайт — місцем сили.
+                        </p>
+                         <!-- Таблиця характеристик -->
+                         <div class="border-t border-stone-300 mt-12 pt-8">
+                            <div class="tech-spec-row">
+                                <span class="tech-spec-label">Мета</span>
+                                <span class="tech-spec-value">Презентація та Імідж</span>
+                            </div>
+                            <div class="tech-spec-row">
+                                <span class="tech-spec-label">Акцент</span>
+                                <span class="tech-spec-value">Медіа-контент</span>
+                            </div>
+                            <div class="tech-spec-row">
+                                <span class="tech-spec-label">Термін</span>
+                                <span class="tech-spec-value">10–20 днів</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Галерея -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-24">
+                    <div class="photo-print bg-white p-3 shadow-md relative">
+                        <div class="crop-mark crop-tl"></div>
+                        <img src="https://images.unsplash.com/photo-1507721999472-8ed4421c4af2?q=80&w=1000&auto=format&fit=crop" alt="Artistic" class="w-full aspect-square object-cover grayscale">
+                        <span class="absolute bottom-4 left-4 text-[10px] font-mono text-stone-400">PURE AESTHETICS</span>
+                    </div>
+                    <div class="photo-print bg-white p-3 shadow-md relative md:mt-12">
+                        <div class="crop-mark crop-br"></div>
+                        <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?q=80&w=1000&auto=format&fit=crop" alt="Work" class="w-full aspect-square object-cover grayscale">
+                        <span class="absolute bottom-4 left-4 text-[10px] font-mono text-stone-400">FOCUS</span>
+                    </div>
+                </div>
+
+                <div class="flex flex-col items-center gap-8">
+                    <button onclick="openEmailModal()" class="inline-block border border-ink px-10 py-4 text-sm uppercase tracking-widest hover:bg-ink hover:text-paper transition-colors duration-500">
+                        Створити Портфоліо
+                    </button>
+                    <button onclick="navigateTo('webresources')" class="text-sm uppercase tracking-widest border-b border-ink pb-1 hover:text-stone-500 transition-colors">
+                        ← Повернутися
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- ================= WEB: CORPORATE ================= -->
+        <div id="page-web-corporate" class="page-hidden page-transition bg-paper min-h-screen z-50">
+            <div class="max-w-5xl mx-auto px-6 py-24">
+                <h1 class="text-5xl md:text-7xl font-serif mb-12 text-ink">Цифрова <br><span class="italic text-stone-500">фортеця.</span></h1>
+                
+                <div class="grid grid-cols-1 md:grid-cols-12 gap-12 mb-20">
+                    <div class="md:col-span-8 space-y-8 text-lg font-light leading-relaxed text-stone-800">
+                        <p>
+                            Корпоративний сайт — це фундамент вашої репутації. Тут немає місця випадковостям. Кожна сторінка, кожне посилання, кожен блок тексту працюють на побудову довіри між брендом та клієнтом.
+                        </p>
+                        <p>
+                            Ми розробляємо складні, масштабовані системи, які легко адмініструвати та розвивати. Інтеграція з CRM, захист даних, бездоганна мобільна адаптація — це базові гігієнічні норми. Але ми додаємо до цього "душу": корпоративний стиль, який робить бездушну структуру живою та привабливою.
+                        </p>
+                         <!-- Таблиця характеристик -->
+                         <div class="border-t border-stone-300 mt-12 pt-8">
+                            <div class="tech-spec-row">
+                                <span class="tech-spec-label">Мета</span>
+                                <span class="tech-spec-value">Інформування та Сервіс</span>
+                            </div>
+                            <div class="tech-spec-row">
+                                <span class="tech-spec-label">Структура</span>
+                                <span class="tech-spec-value">Ієрархічна / Багаторівнева</span>
+                            </div>
+                            <div class="tech-spec-row">
+                                <span class="tech-spec-label">Термін</span>
+                                <span class="tech-spec-value">від 30 днів</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Галерея -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-24">
+                    <div class="photo-print bg-white p-3 shadow-md relative">
+                        <div class="crop-mark crop-tl"></div>
+                        <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=1000&auto=format&fit=crop" alt="Architecture" class="w-full aspect-square object-cover grayscale">
+                        <span class="absolute bottom-4 left-4 text-[10px] font-mono text-stone-400">STRUCTURE</span>
+                    </div>
+                    <div class="photo-print bg-white p-3 shadow-md relative md:mt-12">
+                        <div class="crop-mark crop-br"></div>
+                        <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=1000&auto=format&fit=crop" alt="Office" class="w-full aspect-square object-cover grayscale">
+                        <span class="absolute bottom-4 left-4 text-[10px] font-mono text-stone-400">SCALE</span>
+                    </div>
+                </div>
+
+                <div class="flex flex-col items-center gap-8">
+                    <button onclick="openEmailModal()" class="inline-block border border-ink px-10 py-4 text-sm uppercase tracking-widest hover:bg-ink hover:text-paper transition-colors duration-500">
+                        Розпочати проєкт
+                    </button>
+                    <button onclick="navigateTo('webresources')" class="text-sm uppercase tracking-widest border-b border-ink pb-1 hover:text-stone-500 transition-colors">
+                        ← Повернутися
+                    </button>
+                </div>
+            </div>
         </div>
     </main>
 
@@ -779,41 +958,34 @@
                     </a>
 
                     <!-- Gmail Button -->
-                    <a href="mailto:mon.mothma.design@gmail.com" class="text-ink hover:text-stone-500 transition-all duration-300 hover:scale-110" title="Написати Email">
+                    <button onclick="openEmailModal()" class="text-ink hover:text-stone-500 transition-all duration-300 hover:scale-110" title="Написати Email">
                         <svg xmlns="http://www.w3.org/2000/svg" width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
-                    </a>
-                </div>
-                
-                <p class="text-xs text-stone-400 uppercase tracking-widest mb-2">Або заповніть форму</p>
-                <div class="w-8 h-px bg-stone-300 mx-auto"></div>
-            </div>
-
-            <form id="contactForm" class="space-y-12 reveal delay-100">
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
-                    <div class="relative">
-                        <input type="text" id="name" required class="peer w-full bg-transparent border-b border-stone-400 py-2 text-ink focus:outline-none focus:border-ink transition-colors placeholder-transparent" placeholder="Ім'я">
-                        <label for="name" class="absolute left-0 -top-3.5 text-xs text-stone-500 transition-all peer-placeholder-shown:text-base peer-placeholder-shown:top-2 peer-focus:-top-3.5 peer-focus:text-xs peer-focus:text-ink">Ваше ім'я</label>
-                    </div>
-                    <div class="relative">
-                        <input type="email" id="email" required class="peer w-full bg-transparent border-b border-stone-400 py-2 text-ink focus:outline-none focus:border-ink transition-colors placeholder-transparent" placeholder="Email">
-                        <label for="email" class="absolute left-0 -top-3.5 text-xs text-stone-500 transition-all peer-placeholder-shown:text-base peer-placeholder-shown:top-2 peer-focus:-top-3.5 peer-focus:text-xs peer-focus:text-ink">Електронна пошта</label>
-                    </div>
-                </div>
-                
-                <div class="relative">
-                    <textarea id="message" required rows="4" class="peer w-full bg-transparent border-b border-stone-400 py-2 text-ink focus:outline-none focus:border-ink transition-colors placeholder-transparent resize-none" placeholder="Повідомлення"></textarea>
-                    <label for="message" class="absolute left-0 -top-3.5 text-xs text-stone-500 transition-all peer-placeholder-shown:text-base peer-placeholder-shown:top-2 peer-focus:-top-3.5 peer-focus:text-xs peer-focus:text-ink">Деталі замовлення</label>
-                </div>
-
-                <div class="flex justify-center pt-8">
-                    <button type="submit" class="group relative px-12 py-4 bg-transparent overflow-hidden border border-ink text-ink transition-colors hover:text-paper">
-                        <span class="absolute inset-0 w-full h-full bg-ink transform -translate-x-full group-hover:translate-x-0 transition-transform duration-300 ease-out"></span>
-                        <span class="relative z-10 uppercase tracking-widest text-sm font-medium">Надіслати</span>
                     </button>
                 </div>
-            </form>
+            </div>
         </div>
     </section>
+
+    <!-- Email Selection Modal -->
+    <div id="email-modal" class="fixed inset-0 z-[70] hidden flex items-center justify-center bg-ink/20 backdrop-blur-sm opacity-0 transition-opacity duration-300">
+        <div class="bg-paper p-8 md:p-12 shadow-2xl max-w-sm w-full transform scale-95 transition-transform duration-300 relative border border-stone-200">
+            <button onclick="closeEmailModal()" class="absolute top-4 right-4 text-stone-400 hover:text-ink">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+            </button>
+            <h3 class="text-2xl font-serif mb-6 text-center text-ink">Написати листа</h3>
+            <div class="space-y-4 flex flex-col">
+                <a href="mailto:mon.mothma.design@gmail.com?subject=Запит%20Mon%20Mothma&body=Вітаю!%20Мене%20цікавить..." class="block border border-stone-300 p-4 text-center hover:bg-white hover:border-ink transition-all text-stone-600 hover:text-ink">
+                    Стандартна програма
+                </a>
+                <a href="https://mail.google.com/mail/?view=cm&fs=1&to=mon.mothma.design@gmail.com&su=Запит%20Mon%20Mothma&body=Вітаю!%20Мене%20цікавить..." target="_blank" class="block border border-stone-300 p-4 text-center hover:bg-white hover:border-ink transition-all text-stone-600 hover:text-ink">
+                    Gmail
+                </a>
+                <a href="https://outlook.live.com/default.aspx?rru=compose&to=mon.mothma.design@gmail.com&subject=Запит%20Mon%20Mothma&body=Вітаю!%20Мене%20цікавить..." target="_blank" class="block border border-stone-300 p-4 text-center hover:bg-white hover:border-ink transition-all text-stone-600 hover:text-ink">
+                    Outlook
+                </a>
+            </div>
+        </div>
+    </div>
 
     <!-- Футер -->
     <footer class="bg-ink text-paper py-16 border-t border-stone-800">
@@ -854,26 +1026,42 @@
 
     <!-- JavaScript для інтерактивності та навігації -->
     <script>
-        // Обробка форми зворотного зв'язку
-        document.getElementById('contactForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            const name = document.getElementById('name').value;
-            const email = document.getElementById('email').value;
-            const message = document.getElementById('message').value;
-            
-            // Формування тіла листа для mailto
-            const subject = `Запит з сайту Mon Mothma від ${name}`;
-            const body = `Ім'я: ${name}%0D%0AEmail: ${email}%0D%0A%0D%0AПовідомлення:%0D%0A${message}`;
-            
-            // Відкриття поштового клієнта
-            window.location.href = `mailto:mon.mothma.design@gmail.com?subject=${subject}&body=${body}`;
+        // Modal functions
+        function openEmailModal() {
+            const modal = document.getElementById('email-modal');
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                modal.classList.remove('opacity-0');
+                modal.querySelector('div').classList.remove('scale-95');
+                modal.querySelector('div').classList.add('scale-100');
+            }, 10);
+        }
+
+        function closeEmailModal() {
+            const modal = document.getElementById('email-modal');
+            modal.classList.add('opacity-0');
+            modal.querySelector('div').classList.remove('scale-100');
+            modal.querySelector('div').classList.add('scale-95');
+            setTimeout(() => {
+                modal.classList.add('hidden');
+            }, 300);
+        }
+
+        // Close modal on click outside
+        document.getElementById('email-modal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeEmailModal();
+            }
         });
 
         // Функція навігації (SPA роутинг)
         function navigateTo(pageId, anchorId = null) {
             // Список усіх сторінок (ID)
-            const pages = ['home', 'photoprint', 'design', 'webresources', 'project-vogue', 'project-mono'];
+            const pages = [
+                'home', 'photoprint', 'design', 'webresources', 
+                'project-vogue', 'project-mono',
+                'web-landing', 'web-portfolio', 'web-corporate' // Додані нові сторінки
+            ];
             
             // Плавний скрол до верху
             if (!anchorId) {
@@ -893,16 +1081,6 @@
                     }
                 }
             });
-
-            // Логіка приховування навігації (Хедера) - ВИДАЛЕНО, ТЕПЕР ХЕДЕР ЗАВЖДИ ВИДИМИЙ
-            /*
-            const navbar = document.getElementById('navbar');
-            if (pageId === 'project-vogue' || pageId === 'project-mono') {
-                navbar.classList.add('-translate-y-full'); // Ховаємо хедер вгору
-            } else {
-                navbar.classList.remove('-translate-y-full'); // Показуємо хедер
-            }
-            */
 
             // Якщо є якір (наприклад #contact), скролимо до нього після зміни сторінки
             if (anchorId) {
