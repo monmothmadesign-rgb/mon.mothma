@@ -135,7 +135,6 @@
             border-bottom: none;
         }
 
-        /* Стилі для специфікацій на сторінках вебресурсів */
         .tech-spec-row {
             display: flex;
             justify-content: space-between;
@@ -161,6 +160,24 @@
 
         p { line-height: 1.7; letter-spacing: -0.01em; }
         h1, h2, h3 { letter-spacing: -0.02em; }
+        
+        /* Language Switcher Styles */
+        .lang-switch-btn {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.8rem;
+            font-weight: 500;
+            color: #8C8C8C;
+            transition: color 0.3s;
+            cursor: pointer;
+        }
+        .lang-switch-btn.active {
+            color: #1A1A1A;
+            font-weight: 600;
+        }
+        .lang-separator {
+            margin: 0 4px;
+            color: #E5E5E5;
+        }
     </style>
 </head>
 <body class="antialiased selection:bg-stone-300 selection:text-ink">
@@ -172,46 +189,55 @@
         <div class="max-w-7xl mx-auto px-6 py-5 flex justify-between items-center">
             <a href="javascript:void(0)" onclick="navigateTo('home')" class="text-xl font-serif italic font-semibold tracking-wide hover:opacity-70 transition-opacity">Mon Mothma.</a>
             
-            <div class="hidden md:flex space-x-12 text-sm font-medium tracking-wide text-stone-600">
-                <a href="javascript:void(0)" onclick="navigateTo('home')" class="hover:text-ink transition-colors relative group">
+            <div class="hidden md:flex space-x-12 text-sm font-medium tracking-wide text-stone-600 items-center">
+                <a href="javascript:void(0)" onclick="navigateTo('home')" class="hover:text-ink transition-colors relative group" data-i18n="nav_home">
                     Головна
                     <span class="absolute -bottom-1 left-0 w-0 h-px bg-ink transition-all duration-300 group-hover:w-full"></span>
                 </a>
-                <a href="javascript:void(0)" onclick="navigateTo('photoprint')" class="hover:text-ink transition-colors relative group text-ink font-bold">
+                <a href="javascript:void(0)" onclick="navigateTo('photoprint')" class="hover:text-ink transition-colors relative group text-ink font-bold" data-i18n="nav_print">
                     Фотодрук
                     <span class="absolute -bottom-1 left-0 w-0 h-px bg-ink transition-all duration-300 group-hover:w-full"></span>
                 </a>
-                <a href="javascript:void(0)" onclick="navigateTo('design')" class="hover:text-ink transition-colors relative group">
+                <a href="javascript:void(0)" onclick="navigateTo('design')" class="hover:text-ink transition-colors relative group" data-i18n="nav_design">
                     Дизайн
                     <span class="absolute -bottom-1 left-0 w-0 h-px bg-ink transition-all duration-300 group-hover:w-full"></span>
                 </a>
-                <a href="javascript:void(0)" onclick="navigateTo('webresources')" class="hover:text-ink transition-colors relative group">
+                <a href="javascript:void(0)" onclick="navigateTo('webresources')" class="hover:text-ink transition-colors relative group" data-i18n="nav_web">
                     Вебресурси
                     <span class="absolute -bottom-1 left-0 w-0 h-px bg-ink transition-all duration-300 group-hover:w-full"></span>
                 </a>
-                <a href="#portfolio" onclick="navigateTo('home', 'portfolio')" class="hover:text-ink transition-colors relative group">
+                <a href="#portfolio" onclick="navigateTo('home', 'portfolio')" class="hover:text-ink transition-colors relative group" data-i18n="nav_portfolio">
                     Роботи
                     <span class="absolute -bottom-1 left-0 w-0 h-px bg-ink transition-all duration-300 group-hover:w-full"></span>
                 </a>
-                <a href="#contact" onclick="navigateTo('home', 'contact')" class="hover:text-ink transition-colors relative group">
+                <a href="#contact" onclick="navigateTo('home', 'contact')" class="hover:text-ink transition-colors relative group" data-i18n="nav_contact">
                     Контакти
                     <span class="absolute -bottom-1 left-0 w-0 h-px bg-ink transition-all duration-300 group-hover:w-full"></span>
                 </a>
             </div>
 
-            <button class="md:hidden text-ink" onclick="document.getElementById('mobile-menu').classList.toggle('hidden')">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
-            </button>
+            <div class="flex items-center gap-6">
+                <!-- Language Switcher -->
+                <div class="flex items-center">
+                    <button class="lang-switch-btn active" onclick="setLanguage('uk')" id="lang-uk">UA</button>
+                    <span class="lang-separator">/</span>
+                    <button class="lang-switch-btn" onclick="setLanguage('en')" id="lang-en">EN</button>
+                </div>
+
+                <button class="md:hidden text-ink" onclick="document.getElementById('mobile-menu').classList.toggle('hidden')">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+                </button>
+            </div>
         </div>
 
         <!-- Мобільне меню -->
         <div id="mobile-menu" class="hidden absolute top-full left-0 w-full bg-paper border-b border-stone-200 p-6 flex-col space-y-4 md:hidden">
-            <a href="javascript:void(0)" onclick="navigateTo('home'); document.getElementById('mobile-menu').classList.add('hidden')" class="block text-lg font-serif italic">Головна</a>
-            <a href="javascript:void(0)" onclick="navigateTo('photoprint'); document.getElementById('mobile-menu').classList.add('hidden')" class="block text-lg font-serif italic">Фотодрук</a>
-            <a href="javascript:void(0)" onclick="navigateTo('design'); document.getElementById('mobile-menu').classList.add('hidden')" class="block text-lg font-serif italic">Дизайн</a>
-            <a href="javascript:void(0)" onclick="navigateTo('webresources'); document.getElementById('mobile-menu').classList.add('hidden')" class="block text-lg font-serif italic">Вебресурси</a>
-            <a href="#portfolio" onclick="navigateTo('home', 'portfolio'); document.getElementById('mobile-menu').classList.add('hidden')" class="block text-lg font-serif italic">Роботи</a>
-            <a href="#contact" onclick="navigateTo('home', 'contact'); document.getElementById('mobile-menu').classList.add('hidden')" class="block text-lg font-serif italic">Контакти</a>
+            <a href="javascript:void(0)" onclick="navigateTo('home'); document.getElementById('mobile-menu').classList.add('hidden')" class="block text-lg font-serif italic" data-i18n="nav_home">Головна</a>
+            <a href="javascript:void(0)" onclick="navigateTo('photoprint'); document.getElementById('mobile-menu').classList.add('hidden')" class="block text-lg font-serif italic" data-i18n="nav_print">Фотодрук</a>
+            <a href="javascript:void(0)" onclick="navigateTo('design'); document.getElementById('mobile-menu').classList.add('hidden')" class="block text-lg font-serif italic" data-i18n="nav_design">Дизайн</a>
+            <a href="javascript:void(0)" onclick="navigateTo('webresources'); document.getElementById('mobile-menu').classList.add('hidden')" class="block text-lg font-serif italic" data-i18n="nav_web">Вебресурси</a>
+            <a href="#portfolio" onclick="navigateTo('home', 'portfolio'); document.getElementById('mobile-menu').classList.add('hidden')" class="block text-lg font-serif italic" data-i18n="nav_portfolio">Роботи</a>
+            <a href="#contact" onclick="navigateTo('home', 'contact'); document.getElementById('mobile-menu').classList.add('hidden')" class="block text-lg font-serif italic" data-i18n="nav_contact">Контакти</a>
         </div>
     </nav>
 
@@ -227,17 +253,17 @@
                 <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center relative z-10">
                     <div class="reveal active">
                         <span class="block text-xs uppercase tracking-[0.2em] text-stone-500 mb-6 flex items-center gap-2">
-                            <span class="w-8 h-px bg-stone-500"></span> Дизайн-бюро
+                            <span class="w-8 h-px bg-stone-500"></span> <span data-i18n="hero_subtitle">Дизайн-бюро</span>
                         </span>
-                        <h1 class="text-5xl md:text-7xl font-serif font-medium leading-[1.1] mb-8 text-ink">
+                        <h1 class="text-5xl md:text-7xl font-serif font-medium leading-[1.1] mb-8 text-ink" data-i18n="hero_title">
                             Ми перетворюємо <br>
                             <span class="italic text-stone-600">ідеї</span> на візуальну <br>
                             матерію.
                         </h1>
-                        <p class="text-lg text-stone-600 max-w-md mb-10 font-light">
+                        <p class="text-lg text-stone-600 max-w-md mb-10 font-light" data-i18n="hero_desc">
                             Створюємо цифрові продукти з душею аналогового мистецтва. Деталізація, що має значення, та функціонал, що працює на ваш бізнес.
                         </p>
-                        <a href="#contact" class="inline-block border border-ink px-8 py-4 text-sm uppercase tracking-widest hover:bg-ink hover:text-paper transition-colors duration-500">
+                        <a href="#contact" class="inline-block border border-ink px-8 py-4 text-sm uppercase tracking-widest hover:bg-ink hover:text-paper transition-colors duration-500" data-i18n="hero_cta">
                             Обговорити проєкт
                         </a>
                     </div>
@@ -270,15 +296,15 @@
                 <div class="max-w-5xl mx-auto px-6">
                     <div class="grid grid-cols-1 md:grid-cols-12 gap-12">
                         <div class="md:col-span-4 reveal">
-                            <h2 class="text-3xl font-serif italic mb-6">Філософія форми</h2>
+                            <h2 class="text-3xl font-serif italic mb-6" data-i18n="about_title">Філософія форми</h2>
                             <div class="w-12 h-px bg-ink mb-6"></div>
-                            <p class="text-sm text-stone-500 uppercase tracking-wider">Естетика — це функція</p>
+                            <p class="text-sm text-stone-500 uppercase tracking-wider" data-i18n="about_subtitle">Естетика — це функція</p>
                         </div>
                         <div class="md:col-span-8 space-y-8 reveal delay-100">
-                            <p class="text-xl md:text-2xl font-light leading-relaxed text-stone-800">
+                            <p class="text-xl md:text-2xl font-light leading-relaxed text-stone-800" data-i18n="about_text1">
                                 Сучасний світ перенасичений інформаційним шумом. У цьому хаосі перемагає той, хто говорить чітко, тихо, але впевнено. Ми не просто малюємо гарні картинки — ми будуємо візуальні системи, які впорядковують реальність вашого бренду.
                             </p>
-                            <p class="text-base text-stone-600">
+                            <p class="text-base text-stone-600" data-i18n="about_text2">
                                 Наш підхід базується на принципах класичного швейцарського дизайну: сітка, типографіка, вільний простір. Проте ми інтегруємо ці вічні істини в сучасний цифровий контекст.
                             </p>
                         </div>
@@ -290,11 +316,11 @@
             <section id="portfolio" class="py-24 px-6 md:px-12 bg-white">
                 <div class="max-w-7xl mx-auto">
                     <div class="flex flex-col md:flex-row justify-between items-end mb-16 reveal">
-                        <h2 class="text-4xl font-serif">Вибрані проєкти</h2>
-                        <a href="#" class="text-sm border-b border-ink pb-1 mt-4 md:mt-0 hover:text-stone-600 transition-colors">Переглянути архів</a>
+                        <h2 class="text-4xl font-serif" data-i18n="portfolio_title">Вибрані проєкти</h2>
+                        <a href="#" class="text-sm border-b border-ink pb-1 mt-4 md:mt-0 hover:text-stone-600 transition-colors" data-i18n="portfolio_archive">Переглянути архів</a>
                     </div>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-24">
-                        <!-- Project 1: Vogue Architecture (Clickable) -->
+                        <!-- Project 1 -->
                         <div class="group cursor-pointer reveal" onclick="navigateTo('project-vogue')">
                             <div class="photo-print bg-white p-3 shadow-lg mb-6 relative">
                                 <div class="crop-mark crop-tl"></div>
@@ -307,7 +333,7 @@
                             </div>
                         </div>
 
-                        <!-- Project 2: Monotonous Happiness (Clickable) -->
+                        <!-- Project 2 -->
                         <div class="group cursor-pointer reveal delay-100 md:mt-24" onclick="navigateTo('project-mono')">
                             <div class="photo-print bg-white p-3 shadow-lg mb-6 relative">
                                 <div class="crop-mark crop-tr"></div>
@@ -327,19 +353,13 @@
         <!-- ================= PROJECT VOGUE PAGE ================= -->
         <div id="page-project-vogue" class="page-hidden page-transition bg-paper min-h-screen z-50">
             <div class="max-w-5xl mx-auto px-6 py-24">
-                <h1 class="text-5xl md:text-7xl font-serif mb-12 text-ink">Естетика <br><span class="italic text-stone-500">високої моди.</span></h1>
+                <h1 class="text-5xl md:text-7xl font-serif mb-12 text-ink" data-i18n="project1_title">Естетика <br><span class="italic text-stone-500">високої моди.</span></h1>
                 
                 <div class="grid grid-cols-1 md:grid-cols-12 gap-12 mb-20">
-                    <div class="md:col-span-8 space-y-8 text-lg font-light leading-relaxed text-stone-800">
-                        <p>
-                            Натхнення не приходить із порожнечі. Воно народжується на перетині дисциплін. У нашій роботі ми часто звертаємося до архітектоніки високої моди, запозичуючи принципи побудови форми у таких гігантів, як <strong>Vogue</strong> та <strong>Delpozo</strong>.
-                        </p>
-                        <p>
-                            Ми захоплюємося тим, як <em>Delpozo</em> працює з об'ємом та кольором. Їхні силуети — це скульптури з тканини, де кожна складка має своє математичне обґрунтування. Ми переносимо цю логіку у вебдизайн: кожен блок на сайті повинен мати свою "вагу" та "текстуру", створюючи візуальний ритм, подібний до дефіле.
-                        </p>
-                        <p>
-                            Окрему увагу ми приділяємо інтелектуальному мінімалізму <em>Jil Sander</em> та деконструктивізму <em>Maison Margiela</em>. Їхня здатність ламати стереотипи, оголюючи структуру одягу (а в нашому випадку — структуру інтерфейсу), вчить нас сміливості. Ми віримо, що "шви назовні" у дизайні можуть бути так само естетичними, як і в кутюрній сукні.
-                        </p>
+                    <div class="md:col-span-8 space-y-8 text-lg font-light leading-relaxed text-stone-800" data-i18n="project1_text">
+                        <p>Натхнення не приходить із порожнечі. Воно народжується на перетині дисциплін. У нашій роботі ми часто звертаємося до архітектоніки високої моди, запозичуючи принципи побудови форми у таких гігантів, як Vogue та Delpozo.</p>
+                        <p>Ми захоплюємося тим, як Delpozo працює з об'ємом та кольором. Їхні силуети — це скульптури з тканини, де кожна складка має своє математичне обґрунтування. Ми переносимо цю логіку у вебдизайн: кожен блок на сайті повинен мати свою "вагу" та "текстуру", створюючи візуальний ритм, подібний до дефіле.</p>
+                        <p>Окрему увагу ми приділяємо інтелектуальному мінімалізму Jil Sander та деконструктивізму Maison Margiela. Їхня здатність ламати стереотипи, оголюючи структуру одягу (а в нашому випадку — структуру інтерфейсу), вчить нас сміливості. Ми віримо, що "шви назовні" у дизайні можуть бути так само естетичними, як і в кутюрній сукні.</p>
                     </div>
                 </div>
 
@@ -363,7 +383,7 @@
                 </div>
 
                 <div class="text-center">
-                    <button onclick="navigateTo('home', 'portfolio')" class="text-sm uppercase tracking-widest border-b border-ink pb-1 hover:text-stone-500 transition-colors">
+                    <button onclick="navigateTo('home', 'portfolio')" class="text-sm uppercase tracking-widest border-b border-ink pb-1 hover:text-stone-500 transition-colors" data-i18n="btn_back">
                         ← Повернутися
                     </button>
                 </div>
@@ -373,19 +393,13 @@
         <!-- ================= PROJECT MONO PAGE ================= -->
         <div id="page-project-mono" class="page-hidden page-transition bg-paper min-h-screen z-50">
              <div class="max-w-5xl mx-auto px-6 py-24">
-                <h1 class="text-5xl md:text-7xl font-serif mb-12 text-ink">Monotonous <br><span class="italic text-stone-500">happiness.</span></h1>
+                <h1 class="text-5xl md:text-7xl font-serif mb-12 text-ink" data-i18n="project2_title">Monotonous <br><span class="italic text-stone-500">happiness.</span></h1>
                 
                 <div class="grid grid-cols-1 md:grid-cols-12 gap-12 mb-20">
-                    <div class="md:col-span-8 space-y-8 text-lg font-light leading-relaxed text-stone-800">
-                        <p class="first-letter:text-5xl first-letter:font-serif first-letter:mr-2 first-letter:float-left">
-                            Життя не тримається на містці. Воно плинне, як вода, і не терпить ані помилок, ані поступок. Ми часто чуємо про "боротьбу за життя", але в нашій філософії це поняття хибне. Боротися за життя — це гріх для тих, хто цю боротьбу сам і підсилює. Життя не потребує боротьби; воно потребує присутності.
-                        </p>
-                        <p>
-                            Найважливіше, що у вас є, — це ви самі. Власність себе — це єдиний справжній капітал. Особистість — явище надзвичайно зибуче, ефемерне. Сьогодні ви відчуваєте себе цілісним, а завтра світ намагається розмити ваші кордони. Якщо ви маєте це відчуття "Я", тримайте його всіма силами. Моліться, щоб не втратити цей дар у шумі буденності.
-                        </p>
-                        <p>
-                            Ця філософія прямо впливає на наші проєкти. Ми не біжимо за трендами сліпо, але ми завжди "тримаємо хвіст по вітру". Ми відчуваємо зміни, адаптуємося, але ніколи не втрачаємо свого стрижня. Монотонне щастя — це не нудьга. Це стабільність усвідомлення себе у хаосі світу.
-                        </p>
+                    <div class="md:col-span-8 space-y-8 text-lg font-light leading-relaxed text-stone-800" data-i18n="project2_text">
+                        <p>Життя не тримається на містці. Воно плинне, як вода, і не терпить ані помилок, ані поступок. Ми часто чуємо про "боротьбу за життя", але в нашій філософії це поняття хибне. Боротися за життя — це гріх для тих, хто цю боротьбу сам і підсилює. Життя не потребує боротьби; воно потребує присутності.</p>
+                        <p>Найважливіше, що у вас є, — це ви самі. Власність себе — це єдиний справжній капітал. Особистість — явище надзвичайно зибуче, ефемерне. Сьогодні ви відчуваєте себе цілісним, а завтра світ намагається розмити ваші кордони. Якщо ви маєте це відчуття "Я", тримайте його всіма силами. Моліться, щоб не втратити цей дар у шумі буденності.</p>
+                        <p>Ця філософія прямо впливає на наші проєкти. Ми не біжимо за трендами сліпо, але ми завжди "тримаємо хвіст по вітру". Ми відчуваємо зміни, адаптуємося, але ніколи не втрачаємо свого стрижня. Монотонне щастя — це не нудьга. Це стабільність усвідомлення себе у хаосі світу.</p>
                     </div>
                 </div>
 
@@ -404,22 +418,22 @@
                 </div>
 
                 <div class="text-center">
-                    <button onclick="navigateTo('home', 'portfolio')" class="text-sm uppercase tracking-widest border-b border-ink pb-1 hover:text-stone-500 transition-colors">
+                    <button onclick="navigateTo('home', 'portfolio')" class="text-sm uppercase tracking-widest border-b border-ink pb-1 hover:text-stone-500 transition-colors" data-i18n="btn_back">
                         ← Повернутися
                     </button>
                 </div>
             </div>
         </div>
 
-        <!-- ================= PHOTO PRINT PAGE (EXISTING) ================= -->
+        <!-- ================= PHOTO PRINT PAGE ================= -->
         <div id="page-photoprint" class="page-hidden page-transition">
             <!-- Заголовок сторінки -->
             <div class="py-24 bg-white border-b border-stone-200">
                 <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
                     <div class="reveal active">
-                        <span class="text-xs font-mono text-stone-400 mb-4 block">[ LABORATORY ]</span>
-                        <h1 class="text-5xl md:text-7xl font-serif mb-6 text-ink">Мистецтво <br><span class="italic text-stone-500">на папері.</span></h1>
-                        <p class="text-lg text-stone-600 max-w-md leading-relaxed">
+                        <span class="text-xs font-mono text-stone-400 mb-4 block" data-i18n="print_subtitle">[ LABORATORY ]</span>
+                        <h1 class="text-5xl md:text-7xl font-serif mb-6 text-ink" data-i18n="print_title">Мистецтво <br><span class="italic text-stone-500">на папері.</span></h1>
+                        <p class="text-lg text-stone-600 max-w-md leading-relaxed" data-i18n="print_desc">
                             Фотографія набуває справжньої цінності лише тоді, коли стає фізичною. Ми пропонуємо друк музейної якості, що перетворює ваші цифрові спогади на вічні артефакти.
                         </p>
                     </div>
@@ -437,8 +451,8 @@
             <section class="py-24 px-6">
                 <div class="max-w-4xl mx-auto">
                     <div class="mb-16 reveal">
-                        <h2 class="text-3xl font-serif italic mb-6">Технологія зображення</h2>
-                        <p class="text-stone-600 leading-relaxed">
+                        <h2 class="text-3xl font-serif italic mb-6" data-i18n="tech_title">Технологія зображення</h2>
+                        <p class="text-stone-600 leading-relaxed" data-i18n="tech_desc">
                             Ми не йдемо на компроміси з якістю. Наша студія оснащена сучасним обладнанням, що використовує розширену систему чорнил для бездоганної передачі кольору. Це забезпечує глибокі, оксамитові чорні тони для монохромних світлин та яскраві, живі відтінки для кольорових зображень. Завдяки високій роздільній здатності друку ми зберігаємо найменші деталі вашого кадру, а спеціальні чорнила гарантують стійкість до вицвітання впродовж багатьох років.
                         </p>
                     </div>
@@ -446,16 +460,16 @@
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-12 mb-20 reveal">
                         <div class="bg-white p-8 border border-stone-200 shadow-sm relative overflow-hidden group">
                              <div class="absolute top-0 left-0 w-1 h-full bg-stone-200 group-hover:bg-ink transition-colors duration-300"></div>
-                             <h3 class="text-xl font-serif mb-4">Глянцевий папір</h3>
-                             <p class="text-sm text-stone-600 mb-4">
+                             <h3 class="text-xl font-serif mb-4" data-i18n="paper_glossy_title">Глянцевий папір</h3>
+                             <p class="text-sm text-stone-600 mb-4" data-i18n="paper_glossy_desc">
                                  Ідеально підходить для яскравих та насичених фотографій. Блискуча поверхня підкреслює кольори та деталі, роблячи зображення "живим". Чудовий вибір для портретів та пейзажів, де важлива динаміка та контраст.
                              </p>
                              <span class="text-xs font-mono text-stone-400 uppercase tracking-widest">Glossy Finish</span>
                         </div>
                         <div class="bg-white p-8 border border-stone-200 shadow-sm relative overflow-hidden group">
                              <div class="absolute top-0 left-0 w-1 h-full bg-stone-200 group-hover:bg-ink transition-colors duration-300"></div>
-                             <h3 class="text-xl font-serif mb-4">Матовий папір</h3>
-                             <p class="text-sm text-stone-600 mb-4">
+                             <h3 class="text-xl font-serif mb-4" data-i18n="paper_matte_title">Матовий папір</h3>
+                             <p class="text-sm text-stone-600 mb-4" data-i18n="paper_matte_desc">
                                  Має неблискучу шляхетну поверхню, що запобігає появі відблисків та відбитків пальців. Надає фотографіям м'якості та глибини. Це найкращий вибір для чорно-білих знімків, художніх фото та інтер'єрних рішень.
                              </p>
                              <span class="text-xs font-mono text-stone-400 uppercase tracking-widest">Matte Finish</span>
@@ -465,7 +479,7 @@
                     <!-- Таблиця цін -->
                     <div class="bg-white p-8 md:p-12 shadow-2xl reveal">
                         <div class="flex justify-between items-end mb-10">
-                            <h2 class="text-3xl font-serif">Прайслист</h2>
+                            <h2 class="text-3xl font-serif" data-i18n="price_title">Прайслист</h2>
                             <span class="text-xs font-mono text-stone-400 hidden md:inline-block">UPDATED: NOV 2024</span>
                         </div>
                         
@@ -473,43 +487,22 @@
                             <table class="w-full text-left price-table border-collapse">
                                 <thead>
                                     <tr>
-                                        <th class="w-1/3">Формат</th>
-                                        <th class="w-1/3">Глянець <span class="text-xs text-stone-400 font-sans not-italic font-normal block md:inline">/ шт.</span></th>
-                                        <th class="w-1/3">Мат <span class="text-xs text-stone-400 font-sans not-italic font-normal block md:inline">/ шт.</span></th>
+                                        <th class="w-1/3" data-i18n="price_col1">Формат</th>
+                                        <th class="w-1/3" data-i18n="price_col2">Глянець / шт.</th>
+                                        <th class="w-1/3" data-i18n="price_col3">Мат / шт.</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td class="font-medium text-ink">10x15 см</td>
-                                        <td class="text-stone-600">23 ₴</td>
-                                        <td class="text-stone-600">15 ₴</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="font-medium text-ink">13x18 см</td>
-                                        <td class="text-stone-600">20 ₴</td>
-                                        <td class="text-stone-600">17 ₴</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="font-medium text-ink">15x21 см <span class="text-stone-400 text-xs ml-1">(A5)</span></td>
-                                        <td class="text-stone-600">21 ₴</td>
-                                        <td class="text-stone-600">19 ₴</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="font-medium text-ink">21x30 см <span class="text-stone-400 text-xs ml-1">(A4)</span></td>
-                                        <td class="text-stone-600">40 ₴</td>
-                                        <td class="text-stone-600">32 ₴</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="font-medium text-ink">30x42 см <span class="text-stone-400 text-xs ml-1">(A3)</span></td>
-                                        <td class="text-stone-600">70 ₴</td>
-                                        <td class="text-stone-600">65 ₴</td>
-                                    </tr>
+                                    <tr><td class="font-medium text-ink">10x15 см</td><td class="text-stone-600">23 ₴</td><td class="text-stone-600">15 ₴</td></tr>
+                                    <tr><td class="font-medium text-ink">13x18 см</td><td class="text-stone-600">20 ₴</td><td class="text-stone-600">17 ₴</td></tr>
+                                    <tr><td class="font-medium text-ink">15x21 см (A5)</td><td class="text-stone-600">21 ₴</td><td class="text-stone-600">19 ₴</td></tr>
+                                    <tr><td class="font-medium text-ink">21x30 см (A4)</td><td class="text-stone-600">40 ₴</td><td class="text-stone-600">32 ₴</td></tr>
+                                    <tr><td class="font-medium text-ink">30x42 см (A3)</td><td class="text-stone-600">70 ₴</td><td class="text-stone-600">65 ₴</td></tr>
                                 </tbody>
                             </table>
                         </div>
                         <div class="mt-8 text-xs text-stone-500 font-mono border-t border-stone-100 pt-4 flex flex-col md:flex-row justify-between">
-                            <p>* Мінімальне замовлення — 100 грн.</p>
-                            <p>Для нестандартних розмірів ціна розраховується індивідуально.</p>
+                            <p data-i18n="price_note">* Мінімальне замовлення — 100 грн. Для нестандартних розмірів ціна розраховується індивідуально.</p>
                         </div>
                     </div>
                 </div>
@@ -519,27 +512,26 @@
             <section class="py-24 bg-ink text-paper relative overflow-hidden">
                 <div class="absolute top-0 left-1/2 -translate-x-1/2 w-px h-20 bg-stone-700"></div>
                 <div class="max-w-3xl mx-auto px-6 text-center reveal">
-                    <h2 class="text-3xl md:text-4xl font-serif mb-8 text-white">Як замовити друк?</h2>
-                    <p class="text-stone-400 mb-10 leading-relaxed font-light">
+                    <h2 class="text-3xl md:text-4xl font-serif mb-8 text-white" data-i18n="order_title">Як замовити друк?</h2>
+                    <p class="text-stone-400 mb-10 leading-relaxed font-light" data-i18n="order_desc">
                         Процес простий: надішліть ваші фотографії на нашу електронну пошту або в месенджер. Обов'язково вкажіть бажаний розмір та тип паперу (матовий чи глянцевий). Ми перевіримо файли та зв'яжемося з вами для підтвердження.
                     </p>
                     <div class="flex flex-col md:flex-row gap-6 justify-center">
-                        <a href="https://t.me/mon_mothma_design" target="_blank" class="inline-block border border-white px-8 py-3 text-sm uppercase tracking-widest hover:bg-white hover:text-ink transition-colors duration-300">Написати в Telegram</a>
-                        <button onclick="openEmailModal()" class="inline-block border border-stone-600 px-8 py-3 text-sm uppercase tracking-widest hover:border-white hover:text-white transition-colors duration-300 text-stone-400">Надіслати Email</button>
+                        <a href="https://t.me/mon_mothma_design" target="_blank" class="inline-block border border-white px-8 py-3 text-sm uppercase tracking-widest hover:bg-white hover:text-ink transition-colors duration-300" data-i18n="btn_telegram">Написати в Telegram</a>
+                        <button onclick="openEmailModal()" class="inline-block border border-stone-600 px-8 py-3 text-sm uppercase tracking-widest hover:border-white hover:text-white transition-colors duration-300 text-stone-400" data-i18n="btn_email">Надіслати Email</button>
                     </div>
                 </div>
             </section>
         </div>
 
-        <!-- ================= DESIGN PAGE (EXISTING) ================= -->
+        <!-- ================= DESIGN PAGE ================= -->
         <div id="page-design" class="page-hidden page-transition">
-            <!-- Заголовок сторінки -->
             <div class="py-24 bg-white border-b border-stone-200">
                 <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
                     <div class="reveal active">
-                        <span class="text-xs font-mono text-stone-400 mb-4 block">[ GRAPHIC MATTER ]</span>
-                        <h1 class="text-5xl md:text-7xl font-serif mb-6 text-ink">Візуальна <br><span class="italic text-stone-500">тиша.</span></h1>
-                        <p class="text-lg text-stone-600 max-w-md leading-relaxed">
+                        <span class="text-xs font-mono text-stone-400 mb-4 block" data-i18n="design_subtitle">[ GRAPHIC MATTER ]</span>
+                        <h1 class="text-5xl md:text-7xl font-serif mb-6 text-ink" data-i18n="design_title">Візуальна <br><span class="italic text-stone-500">тиша.</span></h1>
+                        <p class="text-lg text-stone-600 max-w-md leading-relaxed" data-i18n="design_desc">
                             Ми не створюємо просто графіку — ми створюємо відчуття. Кожен піксель, кожен штрих та кожен міліметр простору працюють на ідею довершеності. Це не комерція, це мистецтво комунікації.
                         </p>
                     </div>
@@ -557,45 +549,35 @@
             <section class="py-24 px-6 relative">
                 <div class="max-w-5xl mx-auto">
                     <div class="mb-20 text-center reveal">
-                         <h2 class="text-3xl font-serif italic mb-6">Архітектура смислів</h2>
-                         <p class="text-stone-600 max-w-2xl mx-auto">
+                         <h2 class="text-3xl font-serif italic mb-6" data-i18n="design_offer_title">Архітектура смислів</h2>
+                         <p class="text-stone-600 max-w-2xl mx-auto" data-i18n="design_offer_desc">
                              Від лаконічної візитівки до масштабної айдентики. Ми розробляємо дизайн, що дихає, говорить пошепки, але звучить гучно у свідомості вашого клієнта.
                          </p>
                     </div>
 
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-16 reveal">
-                        <!-- Колонка 1 -->
                         <div class="space-y-12">
                             <div class="group">
                                 <span class="text-xs font-mono text-stone-400 block mb-2">01 / IDENTITY</span>
-                                <h3 class="text-2xl font-medium mb-3 group-hover:text-stone-500 transition-colors">Макети та Айдентика</h3>
-                                <p class="text-sm text-stone-600 leading-relaxed">
-                                    Створення цілісного візуального коду. Логотипи, що стають символами. Брендбуки, що слугують конституцією стилю. Ми проєктуємо не просто зображення, а систему цінностей.
-                                </p>
+                                <h3 class="text-2xl font-medium mb-3 group-hover:text-stone-500 transition-colors" data-i18n="design_item1_title">Макети та Айдентика</h3>
+                                <p class="text-sm text-stone-600 leading-relaxed" data-i18n="design_item1_desc">Створення цілісного візуального коду. Логотипи, що стають символами. Брендбуки, що слугують конституцією стилю.</p>
                             </div>
                             <div class="group">
                                 <span class="text-xs font-mono text-stone-400 block mb-2">02 / PRINT</span>
-                                <h3 class="text-2xl font-medium mb-3 group-hover:text-stone-500 transition-colors">Постери та Листівки</h3>
-                                <p class="text-sm text-stone-600 leading-relaxed">
-                                    Паперова естетика. Дизайн, що приємно тримати в руках. Від мінімалістичних запрошень до концептуальних постерів, що стають окрасою інтер'єру.
-                                </p>
+                                <h3 class="text-2xl font-medium mb-3 group-hover:text-stone-500 transition-colors" data-i18n="design_item2_title">Постери та Листівки</h3>
+                                <p class="text-sm text-stone-600 leading-relaxed" data-i18n="design_item2_desc">Паперова естетика. Дизайн, що приємно тримати в руках. Від мінімалістичних запрошень до концептуальних постерів.</p>
                             </div>
                         </div>
-                         <!-- Колонка 2 -->
                          <div class="space-y-12">
                             <div class="group">
                                 <span class="text-xs font-mono text-stone-400 block mb-2">03 / BUSINESS</span>
-                                <h3 class="text-2xl font-medium mb-3 group-hover:text-stone-500 transition-colors">Візитівки</h3>
-                                <p class="text-sm text-stone-600 leading-relaxed">
-                                    Ваше перше враження. Ми створюємо візитівки, які не хочеться ховати у кишеню. Вибір паперу, тиснення, простір — кожна деталь має значення.
-                                </p>
+                                <h3 class="text-2xl font-medium mb-3 group-hover:text-stone-500 transition-colors" data-i18n="design_item3_title">Візитівки</h3>
+                                <p class="text-sm text-stone-600 leading-relaxed" data-i18n="design_item3_desc">Ваше перше враження. Ми створюємо візитівки, які не хочеться ховати у кишеню. Вибір паперу, тиснення, простір — кожна деталь має значення.</p>
                             </div>
                             <div class="group">
                                 <span class="text-xs font-mono text-stone-400 block mb-2">04 / EDITORIAL</span>
-                                <h3 class="text-2xl font-medium mb-3 group-hover:text-stone-500 transition-colors">Едіторіал</h3>
-                                <p class="text-sm text-stone-600 leading-relaxed">
-                                    Верстка багатосторінкових видань, журналів та каталогів. Робота з сіткою та типографікою для створення комфортного та естетичного досвіду читання.
-                                </p>
+                                <h3 class="text-2xl font-medium mb-3 group-hover:text-stone-500 transition-colors" data-i18n="design_item4_title">Едіторіал</h3>
+                                <p class="text-sm text-stone-600 leading-relaxed" data-i18n="design_item4_desc">Верстка багатосторінкових видань, журналів та каталогів. Робота з сіткою та типографікою для створення комфортного досвіду.</p>
                             </div>
                         </div>
                     </div>
@@ -605,46 +587,40 @@
             <!-- Процес (Timeline) -->
             <section class="py-24 bg-white border-t border-stone-200">
                 <div class="max-w-4xl mx-auto px-6">
-                    <h2 class="text-3xl font-serif mb-16 text-center">Алгоритм створення</h2>
+                    <h2 class="text-3xl font-serif mb-16 text-center" data-i18n="process_title">Алгоритм створення</h2>
                     <div class="space-y-12 relative border-l border-ink ml-4 md:ml-0 pl-8 md:pl-0">
                         <div class="md:flex justify-between items-baseline reveal">
-                            <div class="md:w-1/3 text-right pr-12 hidden md:block">
-                                <span class="text-4xl font-serif text-stone-200">I</span>
-                            </div>
+                            <div class="md:w-1/3 text-right pr-12 hidden md:block"><span class="text-4xl font-serif text-stone-200">I</span></div>
                             <div class="md:w-2/3 relative">
                                 <span class="absolute -left-[41px] top-2 w-5 h-px bg-ink hidden md:block"></span>
                                 <span class="absolute -left-[37px] top-2 w-2 h-2 rounded-full bg-ink md:hidden"></span>
-                                <h3 class="text-xl font-medium mb-2">Занурення</h3>
-                                <p class="text-sm text-stone-600">Ми вивчаємо ваш світ. Аналізуємо ідею, контекст та мету. Це етап глибокої емпатії та досліджень.</p>
+                                <h3 class="text-xl font-medium mb-2" data-i18n="process_1_title">Занурення</h3>
+                                <p class="text-sm text-stone-600" data-i18n="process_1_desc">Ми вивчаємо ваш світ. Аналізуємо ідею, контекст та мету. Це етап глибокої емпатії та досліджень.</p>
                             </div>
                         </div>
                         <div class="md:flex justify-between items-baseline reveal">
-                            <div class="md:w-1/3 text-right pr-12 hidden md:block">
-                                <span class="text-4xl font-serif text-stone-200">II</span>
-                            </div>
+                            <div class="md:w-1/3 text-right pr-12 hidden md:block"><span class="text-4xl font-serif text-stone-200">II</span></div>
                             <div class="md:w-2/3 relative">
                                 <span class="absolute -left-[41px] top-2 w-5 h-px bg-ink hidden md:block"></span>
                                 <span class="absolute -left-[37px] top-2 w-2 h-2 rounded-full bg-ink md:hidden"></span>
-                                <h3 class="text-xl font-medium mb-2">Кристалізація</h3>
-                                <p class="text-sm text-stone-600">Пошук форми. Ескізи, референси, відбір шрифтових пар. Ми відсікаємо зайве, залишаючи лише суть.</p>
+                                <h3 class="text-xl font-medium mb-2" data-i18n="process_2_title">Кристалізація</h3>
+                                <p class="text-sm text-stone-600" data-i18n="process_2_desc">Пошук форми. Ескізи, референси, відбір шрифтових пар. Ми відсікаємо зайве, залишаючи лише суть.</p>
                             </div>
                         </div>
                         <div class="md:flex justify-between items-baseline reveal">
-                            <div class="md:w-1/3 text-right pr-12 hidden md:block">
-                                <span class="text-4xl font-serif text-stone-200">III</span>
-                            </div>
+                            <div class="md:w-1/3 text-right pr-12 hidden md:block"><span class="text-4xl font-serif text-stone-200">III</span></div>
                             <div class="md:w-2/3 relative">
                                 <span class="absolute -left-[41px] top-2 w-5 h-px bg-ink hidden md:block"></span>
                                 <span class="absolute -left-[37px] top-2 w-2 h-2 rounded-full bg-ink md:hidden"></span>
-                                <h3 class="text-xl font-medium mb-2">Втілення</h3>
-                                <p class="text-sm text-stone-600">Фіналізація макету. Підготовка до друку або публікації. Передача файлів у бездоганній якості.</p>
+                                <h3 class="text-xl font-medium mb-2" data-i18n="process_3_title">Втілення</h3>
+                                <p class="text-sm text-stone-600" data-i18n="process_3_desc">Фіналізація макету. Підготовка до друку або публікації. Передача файлів у бездоганній якості.</p>
                             </div>
                         </div>
                     </div>
 
                     <div class="text-center mt-20 reveal">
-                        <p class="text-stone-500 italic mb-8">"Краса врятує світ, якщо вона має структуру."</p>
-                        <a href="#contact" onclick="navigateTo('home', 'contact')" class="inline-block border border-ink px-10 py-4 text-sm uppercase tracking-widest hover:bg-ink hover:text-paper transition-colors duration-500">
+                        <p class="text-stone-500 italic mb-8" data-i18n="design_quote">"Краса врятує світ, якщо вона має структуру."</p>
+                        <a href="#contact" onclick="navigateTo('home', 'contact')" class="inline-block border border-ink px-10 py-4 text-sm uppercase tracking-widest hover:bg-ink hover:text-paper transition-colors duration-500" data-i18n="btn_discuss">
                             Обговорити ідею
                         </a>
                     </div>
@@ -654,13 +630,12 @@
 
         <!-- ================= WEB RESOURCES PAGE ================= -->
         <div id="page-webresources" class="page-hidden page-transition">
-             <!-- Заголовок сторінки -->
              <div class="py-24 bg-white border-b border-stone-200">
                 <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
                     <div class="reveal active">
-                        <span class="text-xs font-mono text-stone-400 mb-4 block">[ DIGITAL SPACE ]</span>
-                        <h1 class="text-5xl md:text-7xl font-serif mb-6 text-ink">Цифровий <br><span class="italic text-stone-500">простір.</span></h1>
-                        <p class="text-lg text-stone-600 max-w-md leading-relaxed">
+                        <span class="text-xs font-mono text-stone-400 mb-4 block" data-i18n="web_subtitle">[ DIGITAL SPACE ]</span>
+                        <h1 class="text-5xl md:text-7xl font-serif mb-6 text-ink" data-i18n="web_title">Цифровий <br><span class="italic text-stone-500">простір.</span></h1>
+                        <p class="text-lg text-stone-600 max-w-md leading-relaxed" data-i18n="web_desc">
                             Ваш сайт — це ваш цифровий дім. Він має бути не лише функціональним, але й емоційно наповненим. Ми проєктуємо інтерактивні досвіди, де технологія служить естетиці.
                         </p>
                     </div>
@@ -678,8 +653,8 @@
             <section class="py-24 px-6 bg-paper">
                 <div class="max-w-5xl mx-auto">
                     <div class="mb-16 reveal">
-                        <h2 class="text-3xl font-serif mb-6">Специфікація розробки</h2>
-                        <p class="text-stone-600 leading-relaxed max-w-2xl">
+                        <h2 class="text-3xl font-serif mb-6" data-i18n="web_spec_title">Специфікація розробки</h2>
+                        <p class="text-stone-600 leading-relaxed max-w-2xl" data-i18n="web_spec_desc">
                             Ми створюємо вебресурси, що працюють як швейцарський годинник. Оберіть формат, який відповідає вашим цілям.
                         </p>
                     </div>
@@ -691,11 +666,11 @@
                             <div class="p-8 hover:bg-stone-50 transition-colors cursor-pointer group" onclick="navigateTo('web-landing')">
                                 <div class="w-10 h-10 border border-stone-300 rounded-full flex items-center justify-center mb-6 text-stone-400 font-serif italic group-hover:border-ink group-hover:text-ink transition-colors">i</div>
                                 <h3 class="text-lg font-medium mb-4 group-hover:underline decoration-1 underline-offset-4">Landing Page</h3>
-                                <p class="text-sm text-stone-500 mb-6">
+                                <p class="text-sm text-stone-500 mb-6" data-i18n="web_item1_desc">
                                     Односторінковий сайт для презентації продукту чи послуги. Лаконічний, сфокусований на дії.
                                 </p>
                                 <div class="text-xs text-stone-400 font-mono flex items-center gap-2">
-                                    <span>ДЕТАЛЬНІШЕ</span>
+                                    <span data-i18n="lbl_details">ДЕТАЛЬНІШЕ</span>
                                     <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="transform group-hover:translate-x-1 transition-transform"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
                                 </div>
                             </div>
@@ -703,11 +678,11 @@
                             <div class="p-8 hover:bg-stone-50 transition-colors cursor-pointer group" onclick="navigateTo('web-portfolio')">
                                 <div class="w-10 h-10 border border-stone-300 rounded-full flex items-center justify-center mb-6 text-stone-400 font-serif italic group-hover:border-ink group-hover:text-ink transition-colors">ii</div>
                                 <h3 class="text-lg font-medium mb-4 group-hover:underline decoration-1 underline-offset-4">Portfolio</h3>
-                                <p class="text-sm text-stone-500 mb-6">
+                                <p class="text-sm text-stone-500 mb-6" data-i18n="web_item2_desc">
                                     Візитівка митця або агенції. Галерея робіт, що розкриває ваш потенціал.
                                 </p>
                                 <div class="text-xs text-stone-400 font-mono flex items-center gap-2">
-                                    <span>ДЕТАЛЬНІШЕ</span>
+                                    <span data-i18n="lbl_details">ДЕТАЛЬНІШЕ</span>
                                     <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="transform group-hover:translate-x-1 transition-transform"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
                                 </div>
                             </div>
@@ -715,16 +690,15 @@
                             <div class="p-8 hover:bg-stone-50 transition-colors cursor-pointer group" onclick="navigateTo('web-corporate')">
                                 <div class="w-10 h-10 border border-stone-300 rounded-full flex items-center justify-center mb-6 text-stone-400 font-serif italic group-hover:border-ink group-hover:text-ink transition-colors">iii</div>
                                 <h3 class="text-lg font-medium mb-4 group-hover:underline decoration-1 underline-offset-4">Corporate</h3>
-                                <p class="text-sm text-stone-500 mb-6">
+                                <p class="text-sm text-stone-500 mb-6" data-i18n="web_item3_desc">
                                     Багатосторінковий ресурс для бізнесу. Структурована подача інформації, новини, блог.
                                 </p>
                                 <div class="text-xs text-stone-400 font-mono flex items-center gap-2">
-                                    <span>ДЕТАЛЬНІШЕ</span>
+                                    <span data-i18n="lbl_details">ДЕТАЛЬНІШЕ</span>
                                     <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="transform group-hover:translate-x-1 transition-transform"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
                                 </div>
                             </div>
                         </div>
-                        <!-- Нижній рядок панелі -->
                         <div class="border-t border-stone-300 p-6 flex flex-col md:flex-row justify-between items-center bg-stone-100 text-xs font-mono text-stone-500">
                             <span>STACK: HTML5 / TAILWIND / JS / REACT</span>
                             <span class="mt-2 md:mt-0">STATUS: AVAILABLE FOR COMMISSION</span>
@@ -732,7 +706,7 @@
                     </div>
 
                     <div class="text-center mt-20 reveal">
-                         <button onclick="openEmailModal()" class="inline-block border border-ink px-10 py-4 text-sm uppercase tracking-widest hover:bg-ink hover:text-paper transition-colors duration-500">
+                         <button onclick="openEmailModal()" class="inline-block border border-ink px-10 py-4 text-sm uppercase tracking-widest hover:bg-ink hover:text-paper transition-colors duration-500" data-i18n="btn_order_web">
                             Замовити вебресурс
                         </button>
                     </div>
@@ -743,30 +717,17 @@
         <!-- ================= WEB: LANDING PAGE ================= -->
         <div id="page-web-landing" class="page-hidden page-transition bg-paper min-h-screen z-50">
             <div class="max-w-5xl mx-auto px-6 py-24">
-                <h1 class="text-5xl md:text-7xl font-serif mb-12 text-ink">Цифровий <br><span class="italic text-stone-500">імпульс.</span></h1>
+                <h1 class="text-5xl md:text-7xl font-serif mb-12 text-ink" data-i18n="landing_title">Цифровий <br><span class="italic text-stone-500">імпульс.</span></h1>
                 
                 <div class="grid grid-cols-1 md:grid-cols-12 gap-12 mb-20">
-                    <div class="md:col-span-8 space-y-8 text-lg font-light leading-relaxed text-stone-800">
-                        <p>
-                            Лендінг — це не просто сторінка в інтернеті. Це сконцентрована енергія вашого продукту, спрямована в одну точку. Це історія, яку ми розповідаємо від першого скролу до фінальної кнопки заклику до дії.
-                        </p>
-                        <p>
-                            Ми віримо в силу "одного екрану". Ваше повідомлення має бути настільки чітким та візуально довершеним, щоб у користувача не виникло бажання закрити вкладку. Ми використовуємо принципи кінематографічного монтажу, щоб керувати увагою відвідувача, ведучи його по сценарію вашого успіху.
-                        </p>
+                    <div class="md:col-span-8 space-y-8 text-lg font-light leading-relaxed text-stone-800" data-i18n="landing_text">
+                        <p>Лендінг — це не просто сторінка в інтернеті. Це сконцентрована енергія вашого продукту, спрямована в одну точку. Це історія, яку ми розповідаємо від першого скролу до фінальної кнопки заклику до дії.</p>
+                        <p>Ми віримо в силу "одного екрану". Ваше повідомлення має бути настільки чітким та візуально довершеним, щоб у користувача не виникло бажання закрити вкладку. Ми використовуємо принципи кінематографічного монтажу, щоб керувати увагою відвідувача, ведучи його по сценарію вашого успіху.</p>
                         <!-- Таблиця характеристик -->
                         <div class="border-t border-stone-300 mt-12 pt-8">
-                            <div class="tech-spec-row">
-                                <span class="tech-spec-label">Мета</span>
-                                <span class="tech-spec-value">Конверсія та Продаж</span>
-                            </div>
-                            <div class="tech-spec-row">
-                                <span class="tech-spec-label">Структура</span>
-                                <span class="tech-spec-value">Лінійна нарація</span>
-                            </div>
-                            <div class="tech-spec-row">
-                                <span class="tech-spec-label">Термін</span>
-                                <span class="tech-spec-value">7–14 днів</span>
-                            </div>
+                            <div class="tech-spec-row"><span class="tech-spec-label">Мета</span><span class="tech-spec-value">Конверсія та Продаж</span></div>
+                            <div class="tech-spec-row"><span class="tech-spec-label">Структура</span><span class="tech-spec-value">Лінійна нарація</span></div>
+                            <div class="tech-spec-row"><span class="tech-spec-label">Термін</span><span class="tech-spec-value">7–14 днів</span></div>
                         </div>
                     </div>
                 </div>
@@ -786,10 +747,10 @@
                 </div>
 
                 <div class="flex flex-col items-center gap-8">
-                    <button onclick="openEmailModal()" class="inline-block border border-ink px-10 py-4 text-sm uppercase tracking-widest hover:bg-ink hover:text-paper transition-colors duration-500">
+                    <button onclick="openEmailModal()" class="inline-block border border-ink px-10 py-4 text-sm uppercase tracking-widest hover:bg-ink hover:text-paper transition-colors duration-500" data-i18n="btn_order_landing">
                         Замовити Landing Page
                     </button>
-                    <button onclick="navigateTo('webresources')" class="text-sm uppercase tracking-widest border-b border-ink pb-1 hover:text-stone-500 transition-colors">
+                    <button onclick="navigateTo('webresources')" class="text-sm uppercase tracking-widest border-b border-ink pb-1 hover:text-stone-500 transition-colors" data-i18n="btn_back">
                         ← Повернутися
                     </button>
                 </div>
@@ -799,30 +760,16 @@
         <!-- ================= WEB: PORTFOLIO ================= -->
         <div id="page-web-portfolio" class="page-hidden page-transition bg-paper min-h-screen z-50">
             <div class="max-w-5xl mx-auto px-6 py-24">
-                <h1 class="text-5xl md:text-7xl font-serif mb-12 text-ink">Рама для <br><span class="italic text-stone-500">шедевра.</span></h1>
+                <h1 class="text-5xl md:text-7xl font-serif mb-12 text-ink" data-i18n="port_web_title">Рама для <br><span class="italic text-stone-500">шедевра.</span></h1>
                 
                 <div class="grid grid-cols-1 md:grid-cols-12 gap-12 mb-20">
-                    <div class="md:col-span-8 space-y-8 text-lg font-light leading-relaxed text-stone-800">
-                        <p>
-                            Портфоліо — це дзеркало митця. Головне правило хорошого портфоліо: дизайн сайту не повинен сперечатися з роботами автора. Він має бути невидимим, як повітря, але відчутним, як атмосфера в галереї.
-                        </p>
-                        <p>
-                            Ми створюємо простір тиші, де голос ваших робіт звучить найгучніше. Мінімалізм, багато "повітря", вишукана типографіка — це інструменти, якими ми будуємо п'єдестал для вашого таланту. Ваше ім'я стане брендом, а ваш сайт — місцем сили.
-                        </p>
-                         <!-- Таблиця характеристик -->
+                    <div class="md:col-span-8 space-y-8 text-lg font-light leading-relaxed text-stone-800" data-i18n="port_web_text">
+                        <p>Портфоліо — це дзеркало митця. Головне правило хорошого портфоліо: дизайн сайту не повинен сперечатися з роботами автора. Він має бути невидимим, як повітря, але відчутним, як атмосфера в галереї.</p>
+                        <p>Ми створюємо простір тиші, де голос ваших робіт звучить найгучніше. Мінімалізм, багато "повітря", вишукана типографіка — це інструменти, якими ми будуємо п'єдестал для вашого таланту. Ваше ім'я стане брендом, а ваш сайт — місцем сили.</p>
                          <div class="border-t border-stone-300 mt-12 pt-8">
-                            <div class="tech-spec-row">
-                                <span class="tech-spec-label">Мета</span>
-                                <span class="tech-spec-value">Презентація та Імідж</span>
-                            </div>
-                            <div class="tech-spec-row">
-                                <span class="tech-spec-label">Акцент</span>
-                                <span class="tech-spec-value">Медіа-контент</span>
-                            </div>
-                            <div class="tech-spec-row">
-                                <span class="tech-spec-label">Термін</span>
-                                <span class="tech-spec-value">10–20 днів</span>
-                            </div>
+                            <div class="tech-spec-row"><span class="tech-spec-label">Мета</span><span class="tech-spec-value">Презентація та Імідж</span></div>
+                            <div class="tech-spec-row"><span class="tech-spec-label">Акцент</span><span class="tech-spec-value">Медіа-контент</span></div>
+                            <div class="tech-spec-row"><span class="tech-spec-label">Термін</span><span class="tech-spec-value">10–20 днів</span></div>
                         </div>
                     </div>
                 </div>
@@ -842,10 +789,10 @@
                 </div>
 
                 <div class="flex flex-col items-center gap-8">
-                    <button onclick="openEmailModal()" class="inline-block border border-ink px-10 py-4 text-sm uppercase tracking-widest hover:bg-ink hover:text-paper transition-colors duration-500">
+                    <button onclick="openEmailModal()" class="inline-block border border-ink px-10 py-4 text-sm uppercase tracking-widest hover:bg-ink hover:text-paper transition-colors duration-500" data-i18n="btn_order_port">
                         Створити Портфоліо
                     </button>
-                    <button onclick="navigateTo('webresources')" class="text-sm uppercase tracking-widest border-b border-ink pb-1 hover:text-stone-500 transition-colors">
+                    <button onclick="navigateTo('webresources')" class="text-sm uppercase tracking-widest border-b border-ink pb-1 hover:text-stone-500 transition-colors" data-i18n="btn_back">
                         ← Повернутися
                     </button>
                 </div>
@@ -855,30 +802,16 @@
         <!-- ================= WEB: CORPORATE ================= -->
         <div id="page-web-corporate" class="page-hidden page-transition bg-paper min-h-screen z-50">
             <div class="max-w-5xl mx-auto px-6 py-24">
-                <h1 class="text-5xl md:text-7xl font-serif mb-12 text-ink">Цифрова <br><span class="italic text-stone-500">фортеця.</span></h1>
+                <h1 class="text-5xl md:text-7xl font-serif mb-12 text-ink" data-i18n="corp_title">Цифрова <br><span class="italic text-stone-500">фортеця.</span></h1>
                 
                 <div class="grid grid-cols-1 md:grid-cols-12 gap-12 mb-20">
-                    <div class="md:col-span-8 space-y-8 text-lg font-light leading-relaxed text-stone-800">
-                        <p>
-                            Корпоративний сайт — це фундамент вашої репутації. Тут немає місця випадковостям. Кожна сторінка, кожне посилання, кожен блок тексту працюють на побудову довіри між брендом та клієнтом.
-                        </p>
-                        <p>
-                            Ми розробляємо складні, масштабовані системи, які легко адмініструвати та розвивати. Інтеграція з CRM, захист даних, бездоганна мобільна адаптація — це базові гігієнічні норми. Але ми додаємо до цього "душу": корпоративний стиль, який робить бездушну структуру живою та привабливою.
-                        </p>
-                         <!-- Таблиця характеристик -->
+                    <div class="md:col-span-8 space-y-8 text-lg font-light leading-relaxed text-stone-800" data-i18n="corp_text">
+                        <p>Корпоративний сайт — це фундамент вашої репутації. Тут немає місця випадковостям. Кожна сторінка, кожне посилання, кожен блок тексту працюють на побудову довіри між брендом та клієнтом.</p>
+                        <p>Ми розробляємо складні, масштабовані системи, які легко адмініструвати та розвивати. Інтеграція з CRM, захист даних, бездоганна мобільна адаптація — це базові гігієнічні норми. Але ми додаємо до цього "душу": корпоративний стиль, який робить бездушну структуру живою та привабливою.</p>
                          <div class="border-t border-stone-300 mt-12 pt-8">
-                            <div class="tech-spec-row">
-                                <span class="tech-spec-label">Мета</span>
-                                <span class="tech-spec-value">Інформування та Сервіс</span>
-                            </div>
-                            <div class="tech-spec-row">
-                                <span class="tech-spec-label">Структура</span>
-                                <span class="tech-spec-value">Ієрархічна / Багаторівнева</span>
-                            </div>
-                            <div class="tech-spec-row">
-                                <span class="tech-spec-label">Термін</span>
-                                <span class="tech-spec-value">від 30 днів</span>
-                            </div>
+                            <div class="tech-spec-row"><span class="tech-spec-label">Мета</span><span class="tech-spec-value">Інформування та Сервіс</span></div>
+                            <div class="tech-spec-row"><span class="tech-spec-label">Структура</span><span class="tech-spec-value">Ієрархічна / Багаторівнева</span></div>
+                            <div class="tech-spec-row"><span class="tech-spec-label">Термін</span><span class="tech-spec-value">від 30 днів</span></div>
                         </div>
                     </div>
                 </div>
@@ -898,10 +831,10 @@
                 </div>
 
                 <div class="flex flex-col items-center gap-8">
-                    <button onclick="openEmailModal()" class="inline-block border border-ink px-10 py-4 text-sm uppercase tracking-widest hover:bg-ink hover:text-paper transition-colors duration-500">
+                    <button onclick="openEmailModal()" class="inline-block border border-ink px-10 py-4 text-sm uppercase tracking-widest hover:bg-ink hover:text-paper transition-colors duration-500" data-i18n="btn_start_project">
                         Розпочати проєкт
                     </button>
-                    <button onclick="navigateTo('webresources')" class="text-sm uppercase tracking-widest border-b border-ink pb-1 hover:text-stone-500 transition-colors">
+                    <button onclick="navigateTo('webresources')" class="text-sm uppercase tracking-widest border-b border-ink pb-1 hover:text-stone-500 transition-colors" data-i18n="btn_back">
                         ← Повернутися
                     </button>
                 </div>
@@ -932,8 +865,8 @@
     <section id="contact" class="py-24 bg-paper relative">
         <div class="max-w-4xl mx-auto px-6">
             <div class="text-center mb-16 reveal">
-                <h2 class="text-4xl md:text-5xl font-serif mb-4">Зв'яжіться з нами</h2>
-                <p class="text-stone-600 mb-8">Для замовлення дизайну, вебресурсу або фотодруку.</p>
+                <h2 class="text-4xl md:text-5xl font-serif mb-4" data-i18n="contact_title">Зв'яжіться з нами</h2>
+                <p class="text-stone-600 mb-8" data-i18n="contact_desc">Для замовлення дизайну, вебресурсу або фотодруку.</p>
                 
                 <!-- Соціальні іконки -->
                 <div class="flex justify-center gap-8 items-center mb-12">
@@ -972,9 +905,9 @@
             <button onclick="closeEmailModal()" class="absolute top-4 right-4 text-stone-400 hover:text-ink">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
             </button>
-            <h3 class="text-2xl font-serif mb-6 text-center text-ink">Написати листа</h3>
+            <h3 class="text-2xl font-serif mb-6 text-center text-ink" data-i18n="modal_title">Написати листа</h3>
             <div class="space-y-4 flex flex-col">
-                <a href="mailto:mon.mothma.design@gmail.com?subject=Запит%20Mon%20Mothma&body=Вітаю!%20Мене%20цікавить..." class="block border border-stone-300 p-4 text-center hover:bg-white hover:border-ink transition-all text-stone-600 hover:text-ink">
+                <a href="mailto:mon.mothma.design@gmail.com?subject=Запит%20Mon%20Mothma&body=Вітаю!%20Мене%20цікавить..." class="block border border-stone-300 p-4 text-center hover:bg-white hover:border-ink transition-all text-stone-600 hover:text-ink" data-i18n="modal_default">
                     Стандартна програма
                 </a>
                 <a href="https://mail.google.com/mail/?view=cm&fs=1&to=mon.mothma.design@gmail.com&su=Запит%20Mon%20Mothma&body=Вітаю!%20Мене%20цікавить..." target="_blank" class="block border border-stone-300 p-4 text-center hover:bg-white hover:border-ink transition-all text-stone-600 hover:text-ink">
@@ -992,25 +925,25 @@
         <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-12">
             <div class="md:col-span-2">
                 <a href="#" class="text-2xl font-serif italic mb-6 block">Mon Mothma.</a>
-                <p class="text-stone-400 text-sm max-w-xs leading-relaxed">
+                <p class="text-stone-400 text-sm max-w-xs leading-relaxed" data-i18n="footer_desc">
                     Дизайн-бюро, що створює сенси. Ми працюємо на перетині технологій та мистецтва, щоб ваш бізнес був почутим.
                 </p>
             </div>
             
             <div>
-                <h4 class="text-xs uppercase tracking-widest text-stone-500 mb-6">Навігація</h4>
+                <h4 class="text-xs uppercase tracking-widest text-stone-500 mb-6" data-i18n="footer_nav">Навігація</h4>
                 <ul class="space-y-3 text-sm text-stone-300">
-                    <li><a href="javascript:void(0)" onclick="navigateTo('home')" class="hover:text-white transition-colors">Головна</a></li>
-                    <li><a href="javascript:void(0)" onclick="navigateTo('photoprint')" class="hover:text-white transition-colors">Фотодрук</a></li>
-                    <li><a href="javascript:void(0)" onclick="navigateTo('design')" class="hover:text-white transition-colors">Дизайн</a></li>
-                    <li><a href="javascript:void(0)" onclick="navigateTo('webresources')" class="hover:text-white transition-colors">Вебресурси</a></li>
-                    <li><a href="#portfolio" class="hover:text-white transition-colors">Портфоліо</a></li>
-                    <li><a href="#contact" class="hover:text-white transition-colors">Контакти</a></li>
+                    <li><a href="javascript:void(0)" onclick="navigateTo('home')" class="hover:text-white transition-colors" data-i18n="nav_home">Головна</a></li>
+                    <li><a href="javascript:void(0)" onclick="navigateTo('photoprint')" class="hover:text-white transition-colors" data-i18n="nav_print">Фотодрук</a></li>
+                    <li><a href="javascript:void(0)" onclick="navigateTo('design')" class="hover:text-white transition-colors" data-i18n="nav_design">Дизайн</a></li>
+                    <li><a href="javascript:void(0)" onclick="navigateTo('webresources')" class="hover:text-white transition-colors" data-i18n="nav_web">Вебресурси</a></li>
+                    <li><a href="#portfolio" class="hover:text-white transition-colors" data-i18n="nav_portfolio">Портфоліо</a></li>
+                    <li><a href="#contact" class="hover:text-white transition-colors" data-i18n="nav_contact">Контакти</a></li>
                 </ul>
             </div>
 
             <div>
-                <h4 class="text-xs uppercase tracking-widest text-stone-500 mb-6">Соціальні мережі</h4>
+                <h4 class="text-xs uppercase tracking-widest text-stone-500 mb-6" data-i18n="footer_social">Соціальні мережі</h4>
                 <ul class="space-y-3 text-sm text-stone-300">
                     <li><a href="https://t.me/mon_mothma_design" target="_blank" class="hover:text-white transition-colors">Telegram</a></li>
                     <li><a href="https://www.instagram.com/mon.mothma_design?igsh=MXBwamdzamxhaGNuZw%3D%3D&utm_source=qr" target="_blank" class="hover:text-white transition-colors">Instagram</a></li>
@@ -1019,13 +952,215 @@
             </div>
         </div>
         <div class="max-w-7xl mx-auto px-6 mt-16 pt-8 border-t border-stone-800 flex flex-col md:flex-row justify-between items-center text-xs text-stone-500 font-mono">
-            <p>&copy; 2025 Mon Mothma Design. Усі права захищено.</p>
-            <p>Designed with love <span class="text-stone-300">♥</span>Created in Ukraine</p>
+            <p data-i18n="footer_rights">&copy; 2024 Mon Mothma Design. Усі права застережено.</p>
+            <p>Designed with <span class="text-stone-300">♥</span> in Ukraine</p>
         </div>
     </footer>
 
     <!-- JavaScript для інтерактивності та навігації -->
     <script>
+        const translations = {
+            uk: {
+                nav_home: "Головна",
+                nav_print: "Фотодрук",
+                nav_design: "Дизайн",
+                nav_web: "Вебресурси",
+                nav_portfolio: "Роботи",
+                nav_contact: "Контакти",
+                hero_subtitle: "Дизайн-бюро",
+                hero_title: "Ми перетворюємо <br><span class='italic text-stone-600'>ідеї</span> на візуальну <br>матерію.",
+                hero_desc: "Створюємо цифрові продукти з душею аналогового мистецтва. Деталізація, що має значення, та функціонал, що працює на ваш бізнес.",
+                hero_cta: "Обговорити проєкт",
+                about_title: "Філософія форми",
+                about_subtitle: "Естетика — це функція",
+                about_text1: "Сучасний світ перенасичений інформаційним шумом. У цьому хаосі перемагає той, хто говорить чітко, тихо, але впевнено. Ми не просто малюємо гарні картинки — ми будуємо візуальні системи, які впорядковують реальність вашого бренду.",
+                about_text2: "Наш підхід базується на принципах класичного швейцарського дизайну: сітка, типографіка, вільний простір. Проте ми інтегруємо ці вічні істини в сучасний цифровий контекст.",
+                portfolio_title: "Вибрані проєкти",
+                portfolio_archive: "Переглянути архів",
+                print_subtitle: "[ LABORATORY ]",
+                print_title: "Мистецтво <br><span class='italic text-stone-500'>на папері.</span>",
+                print_desc: "Фотографія набуває справжньої цінності лише тоді, коли стає фізичною. Ми пропонуємо друк музейної якості, що перетворює ваші цифрові спогади на вічні артефакти.",
+                tech_title: "Технологія зображення",
+                tech_desc: "Ми не йдемо на компроміси з якістю. Наша студія оснащена сучасним обладнанням, що використовує розширену систему чорнил для бездоганної передачі кольору. Це забезпечує глибокі, оксамитові чорні тони для монохромних світлин та яскраві, живі відтінки для кольорових зображень.",
+                paper_glossy_title: "Глянцевий папір",
+                paper_glossy_desc: "Ідеально підходить для яскравих та насичених фотографій. Блискуча поверхня підкреслює кольори та деталі, роблячи зображення \"живим\".",
+                paper_matte_title: "Матовий папір",
+                paper_matte_desc: "Має неблискучу шляхетну поверхню, що запобігає появі відблисків та відбитків пальців. Надає фотографіям м'якості та глибини.",
+                price_title: "Прайслист",
+                price_col1: "Формат",
+                price_col2: "Глянець / шт.",
+                price_col3: "Мат / шт.",
+                price_note: "* Мінімальне замовлення — 100 грн. Для нестандартних розмірів ціна розраховується індивідуально.",
+                order_title: "Як замовити друк?",
+                order_desc: "Процес простий: надішліть ваші фотографії на нашу електронну пошту або в месенджер. Обов'язково вкажіть бажаний розмір та тип паперу (матовий чи глянцевий).",
+                btn_telegram: "Написати в Telegram",
+                btn_email: "Надіслати Email",
+                design_subtitle: "[ GRAPHIC MATTER ]",
+                design_title: "Візуальна <br><span class='italic text-stone-500'>тиша.</span>",
+                design_desc: "Ми не створюємо просто графіку — ми створюємо відчуття. Кожен піксель, кожен штрих та кожен міліметр простору працюють на ідею довершеності. Це не комерція, це мистецтво комунікації.",
+                design_offer_title: "Архітектура смислів",
+                design_offer_desc: "Від лаконічної візитівки до масштабної айдентики. Ми розробляємо дизайн, що дихає, говорить пошепки, але звучить гучно у свідомості вашого клієнта.",
+                design_item1_title: "Макети та Айдентика",
+                design_item1_desc: "Створення цілісного візуального коду. Логотипи, що стають символами. Брендбуки, що слугують конституцією стилю.",
+                design_item2_title: "Постери та Листівки",
+                design_item2_desc: "Паперова естетика. Дизайн, що приємно тримати в руках. Від мінімалістичних запрошень до концептуальних постерів.",
+                design_item3_title: "Візитівки",
+                design_item3_desc: "Ваше перше враження. Ми створюємо візитівки, які не хочеться ховати у кишеню. Вибір паперу, тиснення, простір — кожна деталь має значення.",
+                design_item4_title: "Едіторіал",
+                design_item4_desc: "Верстка багатосторінкових видань, журналів та каталогів. Робота з сіткою та типографікою для створення комфортного досвіду.",
+                process_title: "Алгоритм створення",
+                process_1_title: "Занурення",
+                process_1_desc: "Ми вивчаємо ваш світ. Аналізуємо ідею, контекст та мету. Це етап глибокої емпатії та досліджень.",
+                process_2_title: "Кристалізація",
+                process_2_desc: "Пошук форми. Ескізи, референси, відбір шрифтових пар. Ми відсікаємо зайве, залишаючи лише суть.",
+                process_3_title: "Втілення",
+                process_3_desc: "Фіналізація макету. Підготовка до друку або публікації. Передача файлів у бездоганній якості.",
+                design_quote: "\"Краса врятує світ, якщо вона має структуру.\"",
+                btn_discuss: "Обговорити ідею",
+                web_subtitle: "[ DIGITAL SPACE ]",
+                web_title: "Цифровий <br><span class='italic text-stone-500'>простір.</span>",
+                web_desc: "Ваш сайт — це ваш цифровий дім. Він має бути не лише функціональним, але й емоційно наповненим. Ми проєктуємо інтерактивні досвіди, де технологія служить естетиці.",
+                web_spec_title: "Специфікація розробки",
+                web_spec_desc: "Ми створюємо вебресурси, що працюють як швейцарський годинник. Оберіть формат, який відповідає вашим цілям.",
+                web_item1_desc: "Односторінковий сайт для презентації продукту чи послуги. Лаконічний, сфокусований на дії.",
+                web_item2_desc: "Візитівка митця або агенції. Галерея робіт, що розкриває ваш потенціал.",
+                web_item3_desc: "Багатосторінковий ресурс для бізнесу. Структурована подача інформації, новини, блог.",
+                lbl_details: "ДЕТАЛЬНІШЕ",
+                btn_order_web: "Замовити вебресурс",
+                landing_title: "Цифровий <br><span class='italic text-stone-500'>імпульс.</span>",
+                landing_text: "<p>Лендінг — це не просто сторінка в інтернеті. Це сконцентрована енергія вашого продукту, спрямована в одну точку. Це історія, яку ми розповідаємо від першого скролу до фінальної кнопки заклику до дії.</p><p>Ми віримо в силу 'одного екрану'. Ваше повідомлення має бути настільки чітким та візуально довершеним, щоб у користувача не виникло бажання закрити вкладку.</p>",
+                btn_order_landing: "Замовити Landing Page",
+                port_web_title: "Рама для <br><span class='italic text-stone-500'>шедевра.</span>",
+                port_web_text: "<p>Портфоліо — це дзеркало митця. Головне правило хорошого портфоліо: дизайн сайту не повинен сперечатися з роботами автора. Він має бути невидимим, як повітря, але відчутним, як атмосфера в галереї.</p><p>Ми створюємо простір тиші, де голос ваших робіт звучить найгучніше.</p>",
+                btn_order_port: "Створити Портфоліо",
+                corp_title: "Цифрова <br><span class='italic text-stone-500'>фортеця.</span>",
+                corp_text: "<p>Корпоративний сайт — це фундамент вашої репутації. Тут немає місця випадковостям. Кожна сторінка, кожне посилання, кожен блок тексту працюють на побудову довіри між брендом та клієнтом.</p><p>Ми розробляємо складні, масштабовані системи, які легко адмініструвати та розвивати.</p>",
+                btn_start_project: "Розпочати проєкт",
+                contact_title: "Зв'яжіться з нами",
+                contact_desc: "Для замовлення дизайну, вебресурсу або фотодруку.",
+                footer_desc: "Дизайн-бюро, що створює сенси. Ми працюємо на перетині технологій та мистецтва, щоб ваш бізнес був почутим.",
+                footer_nav: "Навігація",
+                footer_social: "Соціальні мережі",
+                footer_rights: "&copy; 2024 Mon Mothma Design. Усі права застережено.",
+                btn_back: "← Повернутися",
+                project1_title: "Естетика <br><span class='italic text-stone-500'>високої моди.</span>",
+                project1_text: "<p>Натхнення не приходить із порожнечі. Воно народжується на перетині дисциплін. У нашій роботі ми часто звертаємося до архітектоніки високої моди.</p><p>Ми захоплюємося тим, як Delpozo працює з об'ємом та кольором. Їхні силуети — це скульптури з тканини.</p><p>Окрему увагу ми приділяємо інтелектуальному мінімалізму Jil Sander та деконструктивізму Maison Margiela.</p>",
+                project2_title: "Monotonous <br><span class='italic text-stone-500'>happiness.</span>",
+                project2_text: "<p>Життя не тримається на містці. Воно плинне, як вода, і не терпить ані помилок, ані поступок. Боротися за життя — це гріх для тих, хто цю боротьбу сам і підсилює.</p><p>Найважливіше, що у вас є, — це ви самі. Власність себе — це єдиний справжній капітал. Особистість — явище надзвичайно зибуче, ефемерне.</p><p>Ця філософія прямо впливає на наші проєкти. Ми не біжимо за трендами сліпо, але ми завжди 'тримаємо хвіст по вітру'.</p>",
+                modal_title: "Написати листа",
+                modal_default: "Стандартна програма"
+            },
+            en: {
+                nav_home: "Home",
+                nav_print: "Fine Art Print",
+                nav_design: "Design",
+                nav_web: "Digital Spaces",
+                nav_portfolio: "Portfolio",
+                nav_contact: "Enquiries",
+                hero_subtitle: "Design Bureau",
+                hero_title: "We transmute <br><span class='italic text-stone-600'>ideas</span> into visual <br>matter.",
+                hero_desc: "Crafting digital artefacts with the soul of analogue art. Detail that signifies, and functionality that serves your enterprise.",
+                hero_cta: "Discuss Project",
+                about_title: "Philosophy of Form",
+                about_subtitle: "Aesthetics is a function",
+                about_text1: "The modern world is saturated with informational noise. In this chaos, victory belongs to those who speak clearly, quietly, yet confidently. We do not merely draw pretty pictures — we construct visual systems that bring order to the reality of your brand.",
+                about_text2: "Our approach is founded on the principles of classic Swiss design: grid, typography, negative space. Yet, we integrate these eternal truths into the contemporary digital context.",
+                portfolio_title: "Selected Works",
+                portfolio_archive: "View Archive",
+                print_subtitle: "[ LABORATORY ]",
+                print_title: "Art <br><span class='italic text-stone-500'>on paper.</span>",
+                print_desc: "Photography acquires true value only when it becomes physical. We offer museum-quality printing that transforms your digital memories into eternal artefacts.",
+                tech_title: "Imaging Technology",
+                tech_desc: "We make no compromises on quality. Our studio is equipped with state-of-the-art machinery utilising an expanded ink system for flawless colour reproduction. This ensures deep, velvet black tones for monochrome photographs and vivid, living hues for colour images.",
+                paper_glossy_title: "Glossy Paper",
+                paper_glossy_desc: "Ideal for bright and saturated photographs. The lustrous surface accentuates colours and details, rendering the image 'alive'.",
+                paper_matte_title: "Matte Paper",
+                paper_matte_desc: "Possesses a non-reflective, noble surface that prevents glare and fingerprints. Imbues photographs with softness and depth.",
+                price_title: "Price List",
+                price_col1: "Format",
+                price_col2: "Gloss / pc.",
+                price_col3: "Matte / pc.",
+                price_note: "* Minimum order — 100 UAH. Bespoke sizes are calculated individually.",
+                order_title: "How to Commission a Print?",
+                order_desc: "The process is simple: send your photographs via email or messenger. Please specify the desired size and paper type (matte or glossy).",
+                btn_telegram: "Write on Telegram",
+                btn_email: "Send Email",
+                design_subtitle: "[ GRAPHIC MATTER ]",
+                design_title: "Visual <br><span class='italic text-stone-500'>silence.</span>",
+                design_desc: "We create not merely graphics, but sensations. Every pixel, every stroke, and every millimetre of space works towards the idea of perfection. This is not commerce; this is the art of communication.",
+                design_offer_title: "Architecture of Meaning",
+                design_offer_desc: "From a concise business card to sweeping identity. We develop design that breathes, speaks in a whisper, yet resounds loudly in your client's consciousness.",
+                design_item1_title: "Layouts & Identity",
+                design_item1_desc: "Creation of a cohesive visual code. Logos that become symbols. Brand books that serve as the constitution of style.",
+                design_item2_title: "Posters & Leaflets",
+                design_item2_desc: "Paper aesthetics. Design that is a pleasure to hold. From minimalist invitations to conceptual posters.",
+                design_item3_title: "Business Cards",
+                design_item3_desc: "Your first impression. We create cards one would never wish to hide in a pocket. Choice of paper, embossing, space — every detail matters.",
+                design_item4_title: "Editorial",
+                design_item4_desc: "Layout for multi-page publications, journals, and catalogues. Working with grids and typography to create a comfortable reading experience.",
+                process_title: "Creation Algorithm",
+                process_1_title: "Immersion",
+                process_1_desc: "We study your world. We analyse the idea, context, and goal. This is the stage of deep empathy and research.",
+                process_2_title: "Crystallisation",
+                process_2_desc: "Search for form. Sketches, references, selection of typefaces. We cut away the superfluous, leaving only the essence.",
+                process_3_title: "Materialisation",
+                process_3_desc: "Finalisation of the layout. Preparation for print or publication. Transfer of files in impeccable quality.",
+                design_quote: "\"Beauty will save the world, if it possesses structure.\"",
+                btn_discuss: "Discuss Idea",
+                web_subtitle: "[ DIGITAL SPACE ]",
+                web_title: "Digital <br><span class='italic text-stone-500'>estate.</span>",
+                web_desc: "Your website is your digital home. It must be not only functional but emotionally replete. We design interactive experiences where technology serves aesthetics.",
+                web_spec_title: "Development Specification",
+                web_spec_desc: "We create web resources that function like a Swiss watch. Choose the format that aligns with your objectives.",
+                web_item1_desc: "A single-page site for product or service presentation. Concise, focused on action.",
+                web_item2_desc: "A visiting card for an artist or agency. A gallery of works that reveals your potential.",
+                web_item3_desc: "Multi-page resource for business. Structured information delivery, news, blog.",
+                lbl_details: "DETAILS",
+                btn_order_web: "Commission Web Resource",
+                landing_title: "Digital <br><span class='italic text-stone-500'>impulse.</span>",
+                landing_text: "<p>A landing page is not merely a webpage. It is the concentrated energy of your product, directed to a single point. It is a story we tell from the first scroll to the final call-to-action button.</p><p>We believe in the power of the 'single screen'. Your message must be so clear and visually perfect that the user has no desire to close the tab.</p>",
+                btn_order_landing: "Commission Landing Page",
+                port_web_title: "Frame for a <br><span class='italic text-stone-500'>masterpiece.</span>",
+                port_web_text: "<p>A portfolio is the artist's mirror. The cardinal rule of a good portfolio: the site design must not argue with the author's work. It must be invisible as air, yet palpable as the atmosphere in a gallery.</p><p>We create a space of silence where the voice of your works sounds loudest.</p>",
+                btn_order_port: "Create Portfolio",
+                corp_title: "Digital <br><span class='italic text-stone-500'>fortress.</span>",
+                corp_text: "<p>A corporate site is the foundation of your reputation. There is no place for chance here. Every page, every link, every block of text works to build trust between brand and client.</p><p>We develop complex, scalable systems that are easy to administer and evolve.</p>",
+                btn_start_project: "Start Project",
+                contact_title: "Contact Us",
+                contact_desc: "For design, web resources, or fine art print enquiries.",
+                footer_desc: "Design bureau creating meanings. We work at the intersection of technology and art so your business may be heard.",
+                footer_nav: "Navigation",
+                footer_social: "Social Media",
+                footer_rights: "&copy; 2024 Mon Mothma Design. All rights reserved.",
+                btn_back: "← Return",
+                project1_title: "Aesthetics of <br><span class='italic text-stone-500'>High Fashion.</span>",
+                project1_text: "<p>Inspiration does not come from a void. It is born at the intersection of disciplines. In our work, we often turn to the architectonics of high fashion.</p><p>We admire how Delpozo works with volume and colour. Their silhouettes are sculptures of fabric.</p><p>We pay particular attention to the intellectual minimalism of Jil Sander and the deconstructivism of Maison Margiela.</p>",
+                project2_title: "Monotonous <br><span class='italic text-stone-500'>happiness.</span>",
+                project2_text: "<p>Life does not hold onto a bridge. It is fluid as water. To fight for life is a sin for those who amplify this struggle themselves.</p><p>The most important thing you possess is yourself. Ownership of self is the only true capital. Personality is a phenomenon extremely shifting, ephemeral.</p><p>This philosophy directly influences our projects. We do not chase trends blindly, but we always keep our 'ear to the ground'.</p>",
+                modal_title: "Compose Email",
+                modal_default: "Default Programme"
+            }
+        };
+
+        let currentLang = 'uk';
+
+        function setLanguage(lang) {
+            currentLang = lang;
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (translations[lang][key]) {
+                    el.innerHTML = translations[lang][key];
+                }
+            });
+
+            // Update switcher styles
+            document.getElementById('lang-uk').classList.remove('active');
+            document.getElementById('lang-en').classList.remove('active');
+            document.getElementById(`lang-${lang}`).classList.add('active');
+        }
+
+        // ... existing functions (openEmailModal, closeEmailModal, navigateTo, Observer) ...
+        
         // Modal functions
         function openEmailModal() {
             const modal = document.getElementById('email-modal');
@@ -1056,19 +1191,16 @@
 
         // Функція навігації (SPA роутинг)
         function navigateTo(pageId, anchorId = null) {
-            // Список усіх сторінок (ID)
             const pages = [
                 'home', 'photoprint', 'design', 'webresources', 
                 'project-vogue', 'project-mono',
-                'web-landing', 'web-portfolio', 'web-corporate' // Додані нові сторінки
+                'web-landing', 'web-portfolio', 'web-corporate'
             ];
             
-            // Плавний скрол до верху
             if (!anchorId) {
                 window.scrollTo({ top: 0, behavior: 'smooth' });
             }
 
-            // Логіка перемикання видимості сторінок
             pages.forEach(p => {
                 const el = document.getElementById('page-' + p);
                 if (el) {
@@ -1082,7 +1214,6 @@
                 }
             });
 
-            // Якщо є якір (наприклад #contact), скролимо до нього після зміни сторінки
             if (anchorId) {
                 setTimeout(() => {
                     const el = document.getElementById(anchorId);
@@ -1106,12 +1237,10 @@
                 });
             }, observerOptions);
 
-            // Спостерігаємо за всіма елементами .reveal на всіх сторінках
             document.querySelectorAll('.reveal').forEach(el => {
                 observer.observe(el);
             });
 
-            // Плавна зміна фону навігації
             const navbar = document.getElementById('navbar');
             window.addEventListener('scroll', () => {
                 if (window.scrollY > 50) {
